@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Contents</title>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+
+{% for table in database %}
+<div>
+<h1>{{ table[0]}}</h1>
+
+<table>
+<tr>
+    {% for columnname in table[1] %}
+        <th>{{ columnname[0] }}</th>
+    {% endfor %}
+</tr>
+    {% for row in table[2] %}
+<tr>
+        {% for column in row %}
+            <td>{{ column }}</td>
+        {% endfor %}
+</tr>
+    {% endfor %}
+</table>
+
+</div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Award a Merit</title>
+</head>
+<body>
+    <h1>Award a Merit</h1>
+    <form method="POST" action="/submit">
+        <label for="name">Student Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="year">Year:</label><br>
+        <select id="year" name="year" required>
+            {% for y in range(7, 13) %}
+                <option value="{{ y }}">Year {{ y }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="house">House:</label><br>
+        <select id="house" name="house" required>
+            {% for h in houses %}
+                <option value="{{ h }}">{{ h }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="reason">Reason:</label><br>
+        <textarea id="reason" name="reason" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
