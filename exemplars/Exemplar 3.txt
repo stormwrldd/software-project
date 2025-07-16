@@ -1,0 +1,1469 @@
+Cadmia
+HSC Software Design and Development 2022
+
+Contents
+Contents
+
+2
+
+Defining the problem
+Identification of the problem
+Communication to establish requirements
+Idea generation
+Investigate alternative approaches to a solution
+Requirements
+Develop project plan
+
+4
+4
+4
+5
+5
+6
+6
+
+Understanding user requirements
+Design specifications: data types selected
+Design specifications: appropriate data structures
+Representation of the system using a storyboard
+Representation of the system using an IPO chart
+Representation of the system with context and DFD diagrams
+Representation of the system with an initial structure chart
+Limited prototype development
+Consideration of all applicable social and ethical issues
+
+8
+8
+8
+9
+9
+10
+13
+13
+15
+
+Planning and design
+Annotated interface design
+Selection of software environment
+Identification of appropriate hardware
+Definition of required validation processes
+Definition of files
+Record layout and creation
+Algorithm design: structure charts
+Algorithm design: pseudocode for main modules
+Test plan
+Enabling and incorporating feedback from users at regular intervals
+
+16
+16
+17
+17
+20
+21
+21
+24
+24
+27
+27
+
+Implementation
+Tools and modules used
+Final data dictionary
+Solution testing and improvements
+Test plan
+System and user documentation
+Evidence of online help
+Evidence of regular communication with stakeholders
+
+28
+28
+29
+30
+30
+32
+32
+32
+Page 2 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+Evaluation
+Testing of user requirements
+Feedback
+Evaluation of social and ethical considerations
+
+33
+33
+33
+34
+
+Appendix
+Project logbook
+Surveys and interviews
+Full code listing
+References and resources
+
+35
+35
+38
+40
+40
+
+Page 3 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Defining the problem
+
+Identification of the problem
+Currently, there is a lack of consistency and standardisation in the creation of trial
+papers for the HSC subject Mathematics Extension 1. From the start of the subject’s
+new syllabus in 2020 which marks the first set of usable trial papers, there have been
+only three oﬃcial exams published by the NSW Education Standards Authority
+(NESA) which aim to cover all content in the course, which is completely insuﬃcient.
+My program, Cadmia, aims to solve this by procedurally generating questions similar
+to ones found in past HSC papers and using an algorithm to place them in a full
+paper, returning a freely-downloadable PDF.
+The intended audience of Cadmia is HSC students undertaking the Mathematics
+Extension 1 course, which is estimated to be roughly 9,000 students in 2022
+according to NESA’s data for 2021 enrollments.
+
+Communication to establish requirements
+From my participation in and observation of my Maths Extension 1 class last year, I
+noticed that there is no consistent resource which has an acceptable quantity of
+past exam papers. This struggle is reflected in students of all skill levels.
+In order to gauge attitudes of current students with respect to available past
+material, I created a survey for Crabrook’s 2022 Maths Extension 1 cohort, to which a
+majority of students responded. Attached in Appendix 1 are charts of the student
+responses.
+From the responses, we are able to determine that there is a consistent problem of
+lack of access to suitable practice papers, with almost 90% of students struggling to
+find practice internal papers with all correct topics (Fig. S2). We can also see that the
+average student does between 2 and 4 practice papers before a test (Fig. S1), which
+further shows the potential for usage of this software solution. Additionally, we can
+see that the most important features to potential users are the ability to selectively
+remove topics and change paper diﬃculty (Fig. S4). I used these responses to guide
+my requirements as shown in the below section.
+
+Page 4 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Idea generation
+The existing alternative solutions are inferior to this suggested solution. The most
+common and well-known solution is THSCOnline, a service which hosts past HSC
+trial papers from all subjects. However, a vast majority of these papers have been
+written before the latest syllabus update and are now worthless; in addition, many
+lack one or two topics due to the teaching of those topics being placed after the
+published trial exam. Cadmia will rectify this lack of sources by creating a
+customisable experience where students are able to choose the time, diﬃculty and
+topics to be generated in each test.
+
+Investigate alternative approaches to a solution
+The only non-software solution, which is creating and distributing or selling
+human-generated and curated trial HSC papers, has already been thoroughly
+explored by existing companies. For this reason, a non-software approach to this
+problem is infeasible due to market competition.
+The main alternative software approach that was considered was paper merging.
+Instead of wholly generating new questions, paper merging works by dividing
+existing trial and HSC papers into individual questions, manually sorting them by
+topic and diﬃculty, and placing them in a database of past questions. An algorithm
+would then organise randomly selected past questions into a 70-mark paper, which
+would then be returned to the user.
+The most immediate issue with this software solution is copyright. All HSC exams,
+as subsets of NESA-produced content, are protected by Crown copyright, which
+forbids them being “transmitted to any other person or stored electronically in any
+form without the written permission of NESA except as permitted by the Copyright
+Act 1968” (NESA, 2019). Similarly, many schools’ past HSC papers are covered by
+strict copyright from either the schools themselves or the aforementioned paper
+production corporations, which forbids this use, thus making this approach invalid.
+Additionally, even if schools did give explicit permission for their trial papers to be
+used in this way, the quality of the solution would be diminished compared to the
+first solution in both content and aesthetics. The images of the scanned questions
+would not blend with others either aesthetically or in the context of a page, and the
+work’s overall quality would be lesser.
+Finally, much more space would be used up by storing images of past papers over
+automatically generating them, as automatically generated questions can be deleted
+after they are used in a paper.
+Page 5 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Requirements
+● Cadmia must generate a test with diﬃculty and question types accurate to the
+current Mathematics Extension 1 syllabus, while also excluding certain topics
+and altering diﬃculty as the user requests. In addition, it must generate a
+marking guide for each question, and full worked solutions if possible.
+● Cadmia must format any produced tests according to the style guide used by
+NESA.
+● The website which acts as the front-end for Cadmia must be able to be
+accessed on a variety of different browsers, including:
+○ Google Chrome
+○ Firefox
+○ Microsoft Edge
+○ Safari
+● Cadmia must be accessible on both home (desktop/laptop) and mobile
+environments so that users are able to access it at any time.
+● Cadmia must not let users spam-generate papers, in order to reduce system
+resources used. This could be achieved by rate limiting based on logged IP
+addresses, paper creation tied to an account or producing one global paper
+several times a day.
+● Cadmia must not transfer large files between users in order to make the
+product more available to users with limited internet connections.
+● The front-end of Cadmia must be accessible to people with visual
+impairments. (As all generated papers will follow the style guide used by
+NESA, they will be accessible to people with visual impairments by default.)
+● The paper must be returned in the PDF file format to allow for universal
+compatibility between modern operating systems, browsers and other PDF
+viewers (e.g. Preview, Adobe Acrobat).
+● Cadmia must be completed several months before the 2022 Maths Extension
+1 HSC exam in order to give students suﬃcient time to use the solution.
+
+Develop project plan
+This software project will use the agile development methodology for two main
+reasons. The first is that prototypes must be frequently created in order to ensure
+that this project is feasible to continue from a development perspective.
+The other reason that the agile methodology will be used is due to its flexibility. As
+the number of hours that I am able to spend on this project per week varies, I am
+
+Page 6 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+often limited by what I can complete in that time, and the agile methodology offers
+the most forgiving timetabling tolerances.
+I used the CASE tool Google Sheets to create a Gantt chart of the planned timetable
+of this project, which can be found below.
+
+I plan to follow this timetable within reason. For example, I am currently unsure
+exactly what dates or weeks my half-yearly, task 3 and HSC Trial examinations will
+take place during, so I am unable to rule out specific periods of time as unsuitable
+for development. Due to this, I have made every section slightly longer than
+necessary.
+In addition to this timetable, I plan to begin test development during the first
+“understanding user requirements” section. I am unsure of whether I am able to
+solve some of the potential roadblocks I have foreseen with tools I have already
+identified, so I will be attempting to produce a prototype of a basic output with the
+fpdf2 module and Google Charts API among others to determine their viability for
+use in my solution.
+
+Page 7 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Understanding user requirements
+
+Design specifications: data types selected
+The majority of my variables in the content generation side were integers or floats, as
+performing maths on them was required in order to generate problems from the
+solutions. These were converted to strings upon their output to a file with the json
+module.
+On the other hand, I aimed to keep as many of my variables in the string format as
+possible in modules concerning pdf generation, as the fpdf2 library raises an
+exception when non-string values are entered for cells.
+
+Design specifications: appropriate data structures
+I chose to use the FPDF class from the fpdf2 module in order to generate PDF files,
+as its use would have been significantly more eﬃcient than creating a new PDF
+generator. I chose to modify this class to accommodate my own custom functions in
+order to document my code and debug certain parts more easily (e.g., the cover page
+template).
+See the below data dictionaries in the “planning and design” section for more
+comments on dictionary and object usage.
+
+Page 8 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Representation of the system using a storyboard
+See the below “planning and design” section for my comments on the design of each
+individual screen.
+
+Representation of the system using an IPO chart
+Input
+Account details (if
+implemented) and
+valid paper
+
+Process
+
+Output
+
+If account details are invalid,
+return error code 401
+Else, if account’s last used
+
+Paper in PDF form ~ valid
+response (code 200)
+“Try again in [X] minutes”
+Page 9 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+preferences
+
+timestamp is within an hour of
+current time, return error code
+429
+Else, call paper generator,
+which validates paper
+preferences, which returns
+paper, which is then returned
+to the user
+
+~ service used too
+frequently (code 429)
+“Invalid credentials” ~
+user isn’t authenticated
+properly (code 401)
+
+Logging in through
+website, changing
+password, logging
+out (if implemented)
+
+Validates username and
+password against hash
+
+Returns error code 200
+and completes action if
+successful
+Returns error code 401
+and displays error
+message if unsuccessful
+
+Account details (if
+implemented) and
+invalid paper
+preferences
+
+(See the second row of this
+table) In validation, sets paper
+preferences to arbitrary
+minimum/default limits
+
+Returns paper in PDF
+form with arbitrary default
+preferences
+
+Representation of the system with context and DFD diagrams
+The CASE tool Lucidspark was used to create the below diagrams and all similar
+diagrams associated with Cadmia:
+
+Page 10 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Page 11 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Page 12 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Representation of the system with an initial structure chart
+
+Limited prototype development
+A prototype was created in order to examine the viability of my solution and provide
+feedback on the challenges I would face in designing that solution. For the prototype
+to be an accurate representation of my goal for my end product, it had to be
+successful in representing a variety of areas:
+● Question generation: The prototype was able to successfully randomly
+generate a range of questions on vectors, although vector proofs were not
+implemented in the prototype due to time constraints. This raises a concern
+about the viability of diagram-based questions, as while images are able to be
+added by the base fpdf2 module, procedural generation of diagrams may be
+too complex to be implemented.
+● PDF generation: The prototype was able to output a cover page in PDF format
+closely resembling the structure of the most recent NSW HSC Mathematics
+Extension examination.
+Page 13 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+● Question formatting: The prototype was able to successfully utilise the
+Google Charts API to dynamically generate formulae in LaTeX format as PNG
+images.
+● PDF formatting: The prototype was able to embed these images of formulae
+in generated PDF files; however, several existing functions in the fpdf2 module
+must be rewritten to accommodate this image placement without large
+graphical errors.
+● Question selection algorithm: Due to time constraints, a prototype of a
+question selection algorithm was not implemented. However, a sketch of a
+data flow diagram showing its design (see below) was created in order to
+prove its viability.
+
+Page 14 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+I modified the agile method to have the beginning aim of delivering a prototype to
+test viability as quickly as possible, which I then continued from in line with a
+traditional agile approach. This is shown in the statement under my above Gantt
+chart.
+
+Consideration of all applicable social and ethical issues
+If the website has an account system as described above: in order to mitigate effects
+of potential data breaches, the website’s account creation process will not ask for or
+store any personally identifying information such as full name or date of birth, as the
+website does not require this data in order to function. Additionally, a strong
+password policy (uppercase and lowercase letters, numbers, special characters and
+≥8 characters will be required) will be implemented in order to increase the
+complexity and diﬃculty of potential brute-force attacks. Finally, passwords will be
+securely stored in a database and encrypted using SHA-256, which complies with
+basic cybersecurity strategy.
+To make the website more accessible to visually impaired users, highly-contrasting
+simple colours will be used for styling. Additionally, all images produced as part of
+PDFs will have alt-text of their formulae in order to assist users who are visually
+impaired or otherwise unable to render visuals. This change would allow screen
+readers to correctly identify formulae as part of the question and ensure
+uninterrupted testing.
+Additionally, I found and identified a group of students studying Mathematics
+Extension 1 who I could ask for feedback both on the progression of my solution and
+about any social and ethical issues that I may not have considered. I initially
+scheduled regular times every 4 weeks to discuss progress, but due to trial exams I
+was forced to stop connecting with them for a period of time as both the other
+students and I were unable to divert any effort to Cadmia over the duration of those
+exams.
+
+Page 15 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Planning and design
+
+Annotated interface design
+The CASE tool Google Slides was used to create and annotate these designs of the
+two inbound user-facing pages. The “use!” button represents the only transition
+between internal HTML pages.
+
+Page 16 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Selection of software environment
+I chose to write this program in Python 3.7, as I felt confident in my ability to use this
+language to create solutions to this program’s hardest design challenges of PDF
+generation (solved using the fpdf2 module) and question-generation algorithm
+design. I chose to use the PDF format to present generated papers in, as it is widely
+used and accepted, which I used the external fpdf2 module to generate. fpdf2 was
+chosen as it both had clear and extensive documentation and was easy to use.
+I chose to use Replit’s premium plan to host the website, as the low cost meant my
+system would achieve my goal of being an always-available service for the least
+resources spent. The Ubuntu Linux servers hosted by Replit provide a cloud-based
+solution to selecting an appropriate server. Additionally, deciding to pay for hosting
+instead of self-hosting reduces my maintenance workload as server maintenance is
+managed by Replit.
+
+Identification of appropriate hardware
+A variety of internet browsers have been tested and are able to access my website.
+Desktop clients of Google Chrome, Firefox, Safari and Opera are able to generate a
+trial paper and view it, achieving my goal of widespread compatibility.
+While this product will mainly be viewed on computer operating systems such as
+MacOS, Windows and assorted Linux distributions due to its nature, Cadmia is also
+able to be used on the iOS and Android mobile operating systems. However, these
+may require additional software to view the produced PDFs.
+
+Data dictionary
+Below is a data dictionary for the algorithm that generates and adds questions.
+Data ID
+
+Type
+
+Format
+
+topic_database
+
+Python dictionary
+(imported from JSON)
+
+{“topic0”: [“subtopic0”,
+“subtopic1”], “topic1”:
+[“subtopic0”, “subtopic1”]}
+
+blocklist
+
+Array of strings
+
+[“string0”, “string1”,
+“string2”]
+
+topics_in_test
+
+Python dictionary (integer
+values)
+
+{“topic0”: count0, “topic1”:
+count1, “topic2”: count2}
+
+Page 17 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+current_topic
+
+String
+
+“topic”
+
+current_subtopic
+
+String
+
+“topic_subtopic”
+
+Description
+
+Example
+
+Validation
+
+Key-value pairs of all
+topics and their
+subtopics.
+
+{“vectors”:
+[“vectors_parallel”,
+“vectors_perpendicular”]}
+
+N/A (internal variable)
+
+List of topics which the
+user has chosen to not be
+present.
+
+[“polynomials”,
+“combinatorics”]
+
+Checkboxes used to
+ensure user input
+corresponds with a topic
+
+After a topic is randomly
+selected, its value is
+incremented by one.
+
+{“vectors”: 1,
+“binomials”: 3}
+
+N/A (internal variable)
+
+Current topic chosen by
+the random generator.
+
+“vectors”
+
+Randomly chosen
+subtopic of the current
+topic chosen.
+
+“vectors_perpendicular”
+
+I declared current_topic and current_subtopic as strings as strings are the easiest
+and smallest variable type to store words in. I used an array for the blocklist variable
+as it was the easiest representation of an arbitrarily-ordered set of strings, and
+iterating through the list would allow me to easily identify if the current topic was in
+the blocklist.
+
+Below is a data dictionary for the texit module, which extends the fpdf2 module’s
+PDF class to allow for parsing of formulae.
+Data ID
+
+Type
+
+Format
+
+dictionary
+
+Python dictionary
+(imported from JSON)
+
+See below (Record layout
+and creation)
+
+key
+
+String
+
+“string”
+
+value
+
+String, with optional
+formatting enclosed by
+
+“str$%i$ng”
+
+Page 18 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+$% and $ denoting TeX
+formula elements.
+value_list
+
+Array
+
+[“str”, “%i”, “ng”]
+
+text
+
+String
+
+“str”
+
+Description
+
+Example
+
+Validation
+
+A question and its
+answers.
+
+{"type":"short_answer","par N/A (internal variable)
+tite":false,"question":"Give
+n that $%p = (1, 0)$ and
+$%q = (0, 3)$, evaluate
+$%p*q$.","answer": "%-3"}
+
+An arbitrary key from the
+above dictionary.
+
+“question”
+
+The above key’s
+associated value pair.
+
+"Given that $%p = (1, 0)$
+and $%q = (0, 3)$,
+evaluate $%p*q$."
+
+The above string, split
+into plaintext and
+formulae.
+
+[“Given that “, “%p = (1,
+0)”, “ and “, “%q = (0, 3)”, “,
+evaluate “, “%p*q”, “.”]
+
+One element of the above
+array. While this is also a
+slice of the previous
+string, introducing
+value_list makes the code
+more readable.
+
+“Given that”, “%p = (1, 0)”
+
+The key variable is required to be a string due to how Python represents dictionaries.
+Similarly to the example from the question generation algorithm, each key’s value is
+stored as a string as strings are the easiest and most eﬃcient way to store text.
+Value_list is stored as an array due to the inbuilt split() function having an array of
+strings as its output. This is additionally why the text variable is a string, as each text
+variable is an element of value_list.
+
+Page 19 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Definition of required validation processes
+The only source of user input is in the settings screen (see above: interface design),
+where the user is required to both select topics they would like to appear/be absent
+from the generated paper, and select the length and diﬃculty of the exam.
+One approach considered for selecting length and diﬃculty was using text-entry
+fields for both variables, with prompts to name a diﬃculty value between 0 and 100
+and a time value between one and two hours. However, this would require extensive
+validation as the user would be able to enter any string. For example, the time’s
+format would have to account for a wide range of entries, as all of:
+● “1.5”,
+● “1.5h”,
+● “1:30”,
+● “1h30”,
+● “1h 30m”,
+● “1 hour 30”,
+● “1 hour 30 minutes”,
+● “1 hour and 30 minutes”,
+● “90”,
+● “90m”,
+● “90 minutes”,
+and more could be considered valid entries for a test taking an hour and a half to
+complete.
+To resolve this, I created a slider. In the example of time, the user drags a marker on
+a slider between two endpoints labelled “60 minutes” and “120 minutes” to produce
+a test of the desired length. A duration corresponding to the marker’s position
+between the endpoints appears below the marker, letting the user select the length
+of the paper more easily and eﬃciently than a text-entry form while also restricting
+user input so that only valid inputs are passed.
+Cadmia’s other key setting is the ability to blocklist topics which users do not want to
+appear in the test. While a large text-entry form and a message to “separate topics
+with a ,” was initially considered, this was deemed to be much too user-unfriendly as
+users would not know the names of all of the topics they wanted or did not want.
+I decided to design this webpage to include a list of checkboxes, one for each topic,
+which are selected by default. The user then deselects checkboxes to remove topics
+from being chosen for generation in the paper, where the contents of the deselected
+checkboxes form an array on generation corresponding to blocked topics. This both
+increases user eﬃciency and validates user inputs.
+
+Page 20 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Definition of files
+Below is a list of all the major files I read to and write from.
+File
+
+Definition
+
+ext_math.py
+
+Custom module used for advanced mathematics (e.g. vector dot
+products) which are not covered in the standard libraries’ math
+module.
+
+names.json
+
+List of custom names which questions that generate names (e.g.
+many combinatorics questions) read from.
+
+c_[topic].py
+
+Short modules created to choose between different subtopics
+when a topic is randomly selected. Loaded dynamically at runtime
+and removed from memory after use.
+
+q_[subtopic].
+py
+
+Short modules created to store each subtopic. Loaded dynamically
+at runtime and removed from memory after use.
+
+q_[1-14][a-f].j
+son
+
+Questions in JSON format which are output by the above q_
+modules.
+
+nsw_logo.pn
+g
+
+NSW government logo, used in the title page of the output exam.
+
+pdf_template
+s.py
+
+Module which contains a customizable template for the title page
+of the exam.
+
+texit.py
+
+Module created to insert formulas as LaTeX images via the Google
+Charts API into the exam.
+
+output.pdf
+
+Finalised, generated PDF of the test.
+
+Record layout and creation
+For this project, I chose to use Python dictionaries and JSON files/objects for a range
+of different purposes, such as question data, algorithm metadata and user-input
+generation settings. I chose these structures as I was both familiar enough with
+them from previous projects that I could use them effectively and because their
+easily-nested structure made them ideal for certain elements (e.g. the partite
+short-answer format as shown below). Further, there is a json module in the
+easily-accessible standard library which allows me to easily convert between the two
+similar structures.
+Page 21 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+As an example of these structures, I store questions generated by the question
+generator algorithm as JSON files, which my question parser then reads. These files
+have three different structures, corresponding to the three different types of
+questions asked in an exam (multiple-choice, single-part short answer and
+multiple-part short answer). The PDF object’s parse function (patched in by the texit
+module) reads from these files and appends them to the produced paper as is given
+below.
+Multiple-choice format:
+{
+“type”: “multiple_choice”,
+“question”: [string],
+“answer_a”: [string,]
+“answer_b”: [string],
+“answer_c”: [string],
+“answer_d”: [string],
+“answer”: [string]
+}
+Whole short-answer format:
+{
+“type”: “short_answer”,
+“partite”: false,
+“question”: [string],
+“answer”: [string]
+}
+Partite short-answer format:
+{
+“type”: “short_answer”,
+“partite”: false,
+
+Page 22 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+“part_count”: [integer],
+“parts”: {
+“1”: {
+“question”: [string],
+“answer”: [string]
+},
+“2”: {
+“question”: [string],
+“answer”: [string]
+},
+…
+[part_count]: {
+“question”: [string],
+“answer”: [string]
+}
+}
+}
+The fields “answer_a”, “answer_b”, “answer_c”, “answer_d” correspond to the four
+answers required to produce a multiple-choice question. The “answer” field contains
+the correct answer (but not the full solution), which is a choice from [A, B, C, D] for
+multiple-choice questions and a string for extended response questions.
+
+Page 23 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Algorithm design: structure charts
+
+Algorithm design: pseudocode for main modules
+I used a variety of standard algorithms in the development of my solution. The most
+common were linear and binary searches; sorts were less used as the majority of my
+useful data was in unsortable data structures (e.g. dictionaries and objects).
+Below is pseudocode for my texit module. The purpose of this module is to extend
+the functionality of fpdf2’s FPDF class, which will be called by the pdf routine to
+generate the output PDF.
+
+BEGIN Texit
+Import Encode # Encodes strings into URL-safe strings
+Import PDF # fpdf2’s FPDF class, with extra custom-built page templates from my
+pdf_templates module
+Import XPos, YPos # Imports from fpdf2 that control text placement
+
+BEGIN Image_Link(Formula)
+Page 24 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+Base = "https://chart.googleapis.com/chart?cht=tx&chl=" # Base URL of Google
+Charts API
+Return Base + Encode(Formula) # Complete link to a formula ~ to be used in
+Parse_SA
+END Image_Link
+
+CLASS PDF(PDF) # Latches onto the PDF class from fpdf2 and pdf_templates to add
+functionality of parsing formulae
+BEGIN Parse_SA(Self, Dictionary) # Reads short-answer question .json files and
+outputs them into the produced pdf # See the above definition of question files
+FOR Key IN Dictionary.Keys # Linear search for each field (e.g. “question”, “answer_a”,
+“answer”)
+IF Key != “answer”, “type” # Doesn’t print the answer to the question!
+Value = Dictionary[Key]
+Value_List = Value.Split(“$”) # Splits text into raw text, not denoted, and formulae,
+denoted with a leading “%”
+FOR Text IN Value_List: # For every piece of split text # Theoretically should proceed
+as raw, formula, raw, formula, etc., raw
+IF Text[0] = “%”: # If the text’s a formula:
+Text = Text[1:] # Removes preceding % used to indicate this text is a formula
+Self.Image(Image_Link(Text), Alt_Text=Text) # Generates an image through the
+Google Charts API and appends it to the PDF object at its current position
+ELSE # If the text’s just text:
+Self.Multi_Cell(W=30, H=Self.STH, Txt=Text, New_X=XPos.END, New_Y=YPos.LAST)
+# Creates a text cell and appends it to the PDF object at its current position
+ENDIF
+NEXT
+ENDIF
+NEXT
+END Parse_SA
+Page 25 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+ENDCLASS
+END Texit
+
+Below is pseudocode for my question-generating algorithm.
+
+BEGIN Algorithm
+FOR Question in Question_List # For every question in the array of questions
+Question.Remaining = Question.Marks # Sets the number of marks remaining to be
+filled to the total marks the question can accommodate as described in Marksplit
+IF Question.Remaining >= 1 # If the question’s mark capacity hasn’t been filled yet
+TopicFound = False # Flag variable controlling if a new topic should be added
+WHILE TopicFound = False # Pre/post-test doesn’t matter as TopicFound will always
+initially be false # While post-test is slightly more eﬃcient, it doesn’t matter by orders
+of magnitude
+Subtopic = Search(Question.Diﬃculty, Topic_Database) # Find a new part (a, b, c,
+etc.) to add to the question
+IF Subtopic.Marks <= Question.Remaining AND Subtopic.Topic NOT IN
+Question.Topics # If the question part can fit within the remaining mark boundaries
+and the topic it covers hasn’t been used in the question already
+TopicFound = True
+ENDIF
+ENDWHILE
+Question_List.Append(Subtopic) # Adds the subtopic to the overall question
+Question.Remaining -= Subtopic.Marks # Removes the question’s total mark value
+from the remaining marks the question can fit
+ENDIF
+NEXT
+END Algorithm
+
+Page 26 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Test plan
+I used module testing in my development of Cadmia through implementing Replit’s
+unit testing suite, which allowed me to individually test inputs and outputs of select
+functions. I heavily utilised this module when developing the ext_math library in order
+to ensure the mathematical outputs from these functions were correct.
+In order to do program testing, I regularly ran several individual parts of the program
+separately during development such as the PDF generator with stub data (including
+modules fpdf2, pdf_templates, texit and pdf) and the question generation algorithm
+to ensure that each part was working when contained within itself.
+Load and stress testing were done using the tool Burp Suite Community Edition. This
+tool allowed me to make a sustained series of requests to generate PDFs through a
+HTTP request editor. Load testing of the projected maximum of 3 requests per
+minute shows that the website is able to maintain producing papers without
+performance issues under normal conditions.
+While stress testing, it was found that at a rate of 15 requests per minute the website
+became unusable due to requests timing out. This is significantly larger than the
+projected maximum and as such is not a concern during development.
+While I have been continuously testing the complete project’s development with
+potential clients in accordance with the agile approach, I intend to begin formal
+acceptance testing with users identified in survey 1 only upon the completion of the
+PDF- and content generation process.
+
+Enabling and incorporating feedback from users at regular intervals
+I routinely shared my development progress with a select group of potential users
+who gave feedback on my work, allowing me to ensure that my development
+maintained my goals of producing the most complete Maths Extension 1 experience.
+From this, I received suggestions on the design and construction of the website
+frontend, the question generation algorithm with respect to topic selection and the
+accessibility of the paper and frontend.
+
+Page 27 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Implementation
+
+Tools and modules used
+In order to implement my solution, a wide range of both standard and external
+libraries and modules were required to be used. For my custom ext_math module to
+function, several functions in the math module from the standard library were used
+(e.g. the square root and ceiling functions). Further, the standard library’s random
+module was required for the question-generation algorithm in order to determine
+which topics would be covered in each question. The fpdf2 external library was
+extended by my pdf_templates and texit modules in order to provide templates for
+multiple choice questions. For texit’s parsing extension involving receiving images
+from the Google Charts API, the urllib.parse standard module was used to provide
+URL encoding of functions. The json standard library was used both to generate
+JSON objects during question generation and read them during PDF construction.
+The argparse and logging libraries, while not directly used in the construction of my
+project, were instrumental in helping me test and debug my code through the use of
+command line arguments in the Replit CLI. Finally, the Flask and threading external
+modules were used in order to deliver a minimalist website that acts as a visual
+interface for choosing settings and generating the output PDF.
+I used Replit as my IDE, and used its extension to Github to manage version control. I
+additionally used Replit’s package manager to automatically install Flask and fpdf2,
+which helped me manage their dependencies.
+Additionally, I used the CASE tool Lucidchart to produce data flow and context
+diagrams and structure charts to help design this project, Google Sheets to create
+initial and completed Gantt charts, Google Slides to create screen designs and Burp
+Suite Community Edition to test load and stress.
+
+Page 28 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Final data dictionary
+Below is the final data dictionary for the algorithm that generates the multiple choice
+questions.
+Data ID
+
+Type
+
+Format
+
+subtopics_by_topic
+
+Python dictionary
+
+{“topic0”: [“subtopic0”,
+“subtopic1”], “topic1”:
+[“subtopic0”, “subtopic1”]}
+
+blocklist
+
+Array
+
+[“topic0”, “topic1”,
+“topic2”]
+
+dic_of_answers
+
+Python dictionary
+
+{“1”: “A”, “2”: “B”}
+
+random_subtopic
+
+String
+
+“subtopic0”
+
+arb_mod
+
+Object
+
+N/A
+
+question_dict
+
+Dictionary
+
+See “record layout and
+creation” above.
+
+Description
+
+Example
+
+Validation
+
+Key-value pairs of all
+topics and their
+subtopics.
+
+{“vectors”:
+[“vectors_parallel”,
+“vectors_perpendicular”]}
+
+N/A (internal variable)
+
+A list of topics the user
+does not want included.
+
+[“vectors_parallel”]
+
+If the blocklist is equal to
+the list of all topics, it is
+ignored.
+
+Key-value pairs of each
+question number and
+their multiple-choice
+answer.
+
+{“1”: “B”, “2”: “C”, “3”: “D”}
+
+N/A (internal variable)
+
+A random subtopic from a “vectors_parallel”
+random topic in
+subtopics_by_topic.
+An arbitrary moule
+corresponding to
+random_subtopic loaded
+by importlib.util.
+
+The module at
+/home/runner/cadmia/co
+ntent/vectors_parallel.py
+
+The standardised result of {“question”: “For what
+Page 29 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+running the
+return_question formula
+of the above module for
+any subtopic.
+
+values of n are (-2n - 1, -2)
+and (n + 3, 2) parallel?”,
+“answer_a”: “-2”,
+“answer_a”: “-4”,
+“answer_a”: “-5”,
+“answer_a”: “-7”, “answer”:
+“D”,
+
+Solution testing and improvements
+A common feedback which I received from testers was that the load time of the
+product could also be improved. There existed a large amount of loading required to
+generate several sections of the paper due to the multiple calls to the Google Charts
+API, with PDFs containing more formula-heavy topics taking longer. Through
+optimisation of this routine to reduce its time complexity, I enhanced the user
+experience.
+Additionally, further user feedback was that the algorithm should recognise which
+topics have just been selected in the past few questions and give them lower
+weights of being selected, enhancing the user experience through more realistic
+question generation. While still unimplemented, this suggestion has been given a
+medium priority for the next development cycle.
+
+Test plan
+Module testing:
+Individual modules were tested separately according to different inputs. Below is a
+list of all the modules and their performance against module tests:
+● main: Correctly displayed the website with appropriate HTML and CSS.
+● content.*: Correctly generated random variants of the respective questions
+and output them in the correct format and to the correct location.
+● ext_math: Correctly returned the results for each individual formula.
+● algorithm: Crashed after multiple tests were run due to a quirk in the
+behaviour of copying vs. referencing objects in Python. Fixed by instead
+creating a new object and giving it the same value for each key as the original
+object, functionally duplicating the original object.
+● pdf_templates: Correctly produced the title page, multiple-choice and short
+answer templates.
+Page 30 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+● settings: Correctly generated the detailed user settings from minimum,
+maximum and arbitrary time input values.
+● texit: Correctly accessed, produced and embedded pictures from the Google
+Charts API.
+● pdf: Correctly called pdf_templates and texit to generate a sample paper with
+one question.
+As no module failed module testing after fixes were made, I proceeded to program
+testing.
+
+Program testing:
+For the purposes of this testing, the program is defined as the system that generates
+a PDF and outputs it to an arbitrary location when the main module is executed,
+assuming a sample set of random test data contained in the settings module
+replaces the user input. The program contains the main module and all subordinate
+modules.
+Upon initial generation, it was found that the generated PDF still used stub data
+added in the testing of one individual module. It was then found through debugging
+that this data was applied in the pdf_templates module. After removing this
+overwriting of data, the PDF generated normally and responded to changes in the
+test data presented.
+
+System testing:
+Using developer tools in most browsers, users are able to manually alter or bypass
+the time and diﬃculty sliders to produce arbitrary values. A time value of 1,000,000
+minutes was entered into the system in order to test this. This value generated over
+78,000 question files and froze the program for all users, necessitating a restart.
+Three restrictions were placed on the system to combat this vulnerability:
+1. If a non-decimal time is entered, the settings module will treat it as 90
+minutes;
+2. If a time above 300 minutes is entered, the settings module will reduce it to
+300 minutes; and
+3. If a time under 30 minutes is submitted, the settings module will increase it to
+30 minutes.
+
+Page 31 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+System and user documentation
+Internal documentation is provided through comments, such as the ones found in
+the pseudocode in the above algorithm design section. These comments help aid
+potential developers to understand the individual functions which the comments
+refer to.
+I additionally recorded systems documentation in order to assist newer developers in
+the form of assorted README.txt pages. One README.txt page is placed in every
+directory which gives an overview of the functions of each module in those
+directories.
+Upon loading the Cadmia website, users are directed to an online tutorial linked in its
+header. Additionally, a “support” button is also present in that header so that users
+can access a server I created on the social media platform Discord, which will allow
+help and support to be given to them.
+
+Evidence of online help
+The general programming help forum Stack Overflow was used in order to find
+solutions to common questions with Flask and fpdf2. Additionally, the website
+W3Schools was used for help with HTML and CSS. All major help which I received
+can be found in the references in the appendices.
+
+Evidence of regular communication with stakeholders
+I have recorded the dates on which I communicated with my group of potential users
+in my logbook, which can be found in the appendices.
+
+Page 32 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Evaluation
+
+Testing of user requirements
+From this evaluation, I can conclude that Cadmia partially alleviated the problem of a
+lack of Mathematics Extension 1 past exam papers. While Cadmia is able to
+generate the multiple-choice section well, its lack of the required short answer
+section and narrow topic areas make it produce a very narrow Extension 1
+experience. Due to this, until changes are made in a future development cycle in line
+with improvement planned below to add short answer content generation, Cadmia is
+best used as a practice tool for less-skilled users for completing specific question
+types while saving the limited supply of trial papers for later use.
+However, Cadmia does achieve a majority of secondary goals, including
+NESA-appropriate formatting, universal paper compatibility through the PDF format,
+universal website compatibility among browsers, portability, accessibility and low
+data transmission.
+
+Feedback
+User feedback
+The generator
+lacks a short
+answer section
+
+Improvement implemented or planned
+A new stage of the development cycle will continue after the
+current evaluation phase has ended that places generation of
+short-answer questions as its main priority. As the
+foundations are already in place for this upgrade due to my
+heavily modular programming style and use of stubs, this
+phase is planned to take a shorter amount of time.
+
+The settings page’s The CSS has been altered to accommodate sliders on mobile
+sliders are too
+devices better.
+small, especially
+on phones
+The formula font is This is an issue with the Google Charts API itself. Plans have
+too large
+been made to swap the API to a locally installed module such
+as texcaller, but may require substantial rewrites. As such,
+this is a low-priority improvement.
+The generator
+lacks worked
+solutions
+
+As there was no time to implement this in the second
+development cycle under the above agile methodology, this
+was placed on hold until more time was available. This is a
+Page 33 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+high-priority improvement.
+
+Evaluation of social and ethical considerations
+The top-left button “use!” was replaced with a link to an online tutorial and renamed
+“guide”, as some testers struggled with generating the paper. Additionally, it was
+made more clear that the “discord” external link to the Cadmia support server was
+for support through its renaming to “support”. Finally, the “status: online” message
+was replaced with a link to the homepage.
+The website’s security has additionally been improved. Users are required to
+complete a captcha before proceeding to the paper generation, which helps reduce
+the possibility of abuse from DDOS attacks. Additionally, all IP addresses that
+connect to the website are logged in order for potential blocklisting if abuse occurs.
+A number of changes were made from user feedback in order to make Cadmia more
+inclusive. For example, in addition to the pictures on the generated PDFs, alt-text was
+added to all images hosted on the Cadmia website in order to connect with screen
+readers and improve accessibility for users with impaired vision. Further, the term
+“blacklist” was removed from all source code and documentation and replaced with
+“blocklist”.
+While creating the interface for the settings page with CSS, I was unable to generate
+a list of topics on the opposite side to a set of sliders as detailed in my screen design
+due to an unfamiliarity with the language. I did not fix this, but instead reformatted
+the screen to contain both elements in a vertical layout as my time in creating the
+frontend was limited due to other design constraints. Additionally, several parts of
+text, such as the use button and home page text elements, were considered too
+small by testers. The size of these elements was increased in the released version.
+Sources used include StackOverflow and W3Schools, which Python, HTML and CSS
+code is obtained from. A full list of sources can be found in the references section
+below.
+Through this, I am able to conclude that I effectively managed all social and ethical
+issues that were found during the course of design, development and testing of my
+solution.
+
+Page 34 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Appendix
+
+Project logbook
+Initially, I began to experiment with implementing my ideas while still in the first two
+phases of software design, as I knew I would have limited time to complete them
+and I attempted drivers of some solutions while designing them. For this reason, my
+commit history begins at the start of the project. A timeframe of major commits to
+this project can be found at https://github.com/cadmia17/cadmia/commits/main. A
+list of minor updates can be found below:
+
+28/2: Created a basic main module with Flask that would serve as the website loader
+which reused HTML/CSS from another project
+1/3: Created the ext_math module and added the dot product function
+3/3: Created drivers for short-answer vector and combinatorics questions
+4/3: Added sign and coeﬃcient formatting functions to ext_math
+7/3: Began understanding and manually using the Google Charts API to ensure my
+project was completable (design and programming challenge with
+unknown-until-attempted answer)
+9/3: Confirmed that the fpdf2 module was suitable for generating PDF files (design
+and programming challenge with unknown-until-attempted answer)
+10/3: Found group of potential users to report to
+11/3: Integrated Github into the Replit IDE for version control purposes
+14/3: Created a template for the title page
+15/3: Fixed the template to respond to (currently stub) user input
+16/3: Attempted dynamic generation of questions using the Google Charts API
+18/3: Used the shutil module to download PNGs returned by the Google Charts API
+19/3: Began experimenting with loading questions from JSON files
+22/3: Debugged pdf_templates and texit modules
+23/3: Began integrating texit into PDF generation
+Page 35 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+24/3: Finished texit
+25/3: Reported to group of potential users (#1)
+27/3: Fixed bugs in pdf_templates
+30/3: Fixed bugs in texit
+4/4: Attempted using the argparse module for advanced logging to fix more bugs in
+texit
+20/4: Completed fixing bugs in texit
+21/4: Fully integrated pdf_templates and texit into pdf
+22/4: Reported to group of potential users (#2)
+26/4: Streamlined processing in texit by directly inserting images into the PDF object
+28/4: Font and UI fixes
+2/5: Added alt-text for formulas
+3/5: Added alt-text for the NESA logo
+5/5: Reworked question format to accommodate particity in short-answer questions
+11/5: Rewrote texit’s question parser to accommodate particity
+13/5: Added module for generating and processing detailed user settings (settings)
+16/5: Improved ext_math’s dot product formula
+17/5: Added a Roman numeral converter to ext_math
+19/5: Rewrote parts of pdf_templates to accommodate settings integration
+20/5: Reported to group of potential users (#3)
+23/5: Began settings integration to pdf
+24/5: Added randomisation of stub settings
+26/5: Fixed more parts of texit
+30/5: Fixed bugs in settings
+31/5: Fixed a bug caused by fixing the bugs in settings
+2/6: Begun fixing the multiple-choice parser in texit
+
+Page 36 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+17/6: Reverted texit’s image_link generation as previous streamlining is incompatible
+with current fpdf2 due to bugs in the module itself
+20/6: Attempted implementation of Pillow to allow for easier image insertion
+22/6: Reverted Pillow implementation
+[A larger than expected portion of time in this period had no development due to both
+normal assessment tasks and HSC Trial exams. I anticipated this and started
+development earlier, but failed to fully make up for the time lost.]
+12/8: Began work on the algorithm module using importlib.util
+15/8: Fixed issues with algorithm
+16/8: Completed one-button generation of multiple-choice questions as JSON files
+17/8: Integrated algorithm into PDF
+18/8: Fixed issues with Flask and restarted frontend development
+19/8: Added stub settings and guide pages
+20/8: Finished one-button dynamic generation of PDF files using full algorithm,
+pdf_templates and texit, and stub settings, and reported to group of potential users
+(#4)
+21/8: Learned and implemented basic CSS and HTML forms
+22/8: Replaced stub settings with values from HTML forms
+23/8: Added README.txt files and a reference manual as external documentation for
+developer use
+24/8: Attempted solutions to redirect users to the generated PDF
+25/8: Implemented redirection of users to generated PDFs and reported to group of
+potential users (#5)
+26/8: Implemented blocking topics with HTML forms
+27/8: Fixed security vulnerabilities with HTML forms
+
+Page 37 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Surveys and interviews
+I conducted a short survey in early March asking this year’s Mathematics Extension 1
+cohort questions relevant to their study of the course and potential future interaction
+with Cadmia.
+Fig. S1. Student responses to “How many practice papers do you do before an
+exam?”
+
+Fig. S2. Student responses to “What would you like to see most in a maths paper
+generator?”
+
+Page 38 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+Fig. S3. Student responses to “Do you find it hard to find practice papers with the
+same topics/length as your exams?”
+
+Fig. S4. Student responses to “Do you use thsconline.github.io, or a similar service?”
+
+Page 39 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+
+I additionally conducted an interview with Mr Ryan Sadler, a mathematics teacher at
+Cranbrook School, during my “planning and design” phase. From this interview, I
+discovered that the main use of this solution by teachers would be to generate
+practice topic tests for students, further adding to the necessity of implementing
+topic selection.
+
+Full code listing
+A listing of the complete code for this project can be found at the repository
+https://github.com/cadmia17/cadmia.
+
+References and resources
+FPDF Developers. (n.d.). Fpdf.fpdf API.
+https://pyfpdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.fpdf
+Google Developers. (2015, May 26). Mathematical formulas.
+https://developers.google.com/chart/infographics/docs/formulas
+Iljushkin, A. (2015, January 14). Flask Python buttons. Stack Overflow.
+https://stackoverflow.com/questions/19794695/flask-python-buttons
+Page 40 of 41
+
+Cadmia
+HSC Software Design and Development 2022
+Javid, M. (2015, May 19). Flask handling a PDF as its own page. Stack Overflow.
+https://stackoverflow.com/questions/18281433/flask-handling-a-pdf-as-its-own-pag
+e
+Pallets. (2010). Uploading files. Flask 2.2.x Documentation.
+https://flask.palletsprojects.com/en/2.2.x/patterns/fileuploads/
+Pallets. (n.d.). Flask.send_file. Flask API.
+https://tedboy.github.io/flask/generated/flask.send_file.html
+Python Software Foundation. (2022, August 24). OS: Miscellaneous operating
+system interfaces. Python 3.10.6 Documentation.
+https://docs.python.org/3/library/os.html#os-file-dir
+W3Schools. (n.d.). CSS forms. https://www.w3schools.com/css/css_form.asp
+W3Schools. (n.d.). HTML forms. https://www.w3schools.com/html/html_forms.asp
+W3Schools. (n.d.). HTML input types.
+https://www.w3schools.com/html/html_form_input_types.asp
+W3Schools. (n.d.). How to create range sliders.
+https://www.w3schools.com/howto/howto_js_rangeslider.asp
+
+Page 41 of 41
+
+

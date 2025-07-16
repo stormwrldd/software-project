@@ -1,0 +1,92 @@
+HSC Software Engineering
+Year 11 - Programming Fundamentals - Software Development Approaches
+1
+
+Compare the execution of the Waterfall, Agile and Wagile project management models as applied to software development
+
+Objectives
+
+Waterfall
+Agile
+Wagile
+Glossary
+3
+
+
+Software Development Approaches
+
+Waterfall
+
+Waterfall
+Sequential Phases: Each phase must be completed before the next one begins.
+Documentation: Emphasis is placed on documentation at each stage. 
+Planning and Design: Extensive planning and complete design are done at the beginning. 
+Testing: Testing is a separate phase and occurs after the build phase. 
+Changes and Revisions: Difficult and costly, as it usually requires revisiting and revising earlier stages.
+Project Completion: The product is delivered in its entirety after the final phase. 
+
+Agile
+8
+
+Agile
+Iterative and Incremental: Iterative approach where the project is divided into small increments known as 'sprints'.
+Continuous Collaboration: Continuous collaboration with the customer and cross-functional teams. 
+Adaptive Planning: Rapid and flexible response to change.
+Testing: Testing is continuous and occurs simultaneously with development.
+Customer Feedback: Regular feedback from the end-user is encouraged.
+Product Releases: The most important features are developed first resulting in multiple releases.
+
+
+Wagile
+Combination of the two
+Can start Agile for Requirements and design before going to Waterfall for Implementation and Testing
+Could start Waterfall and move to Agile.
+Choice depends on the type of project, skills of team, focus on skills, knowledge etc.
+
+11
+
+Waterfall Project Scenarios
+Waterfall is best suited for projects with well-defined requirements, a clear scope, and minimal expected changes.
+Scenario 1: Government Compliance System
+A government agency needs a system for tax filing that must comply with strict legal regulations.
+Requirements are fully defined upfront, and changes would require formal approval.
+Security and compliance audits must be conducted before deployment.
+Scenario 2: Construction Project Management Software
+A construction company requires software for tracking materials and worker schedules.
+The design must be completed before implementation since construction processes are rigid.
+Changes after development would be costly and time-consuming.
+Scenario 3: Embedded Systems for a Medical Device
+A company is developing firmware for a pacemaker, which must meet medical industry standards.
+Regulatory approval requires detailed documentation and rigorous testing.
+
+
+12
+
+Agile Project Scenarios
+Agile works well for projects with evolving requirements, iterative development, and continuous feedback.
+Scenario 1: E-Commerce Website for a Startup
+A startup is launching an online store but is unsure about customer preferences.
+Features such as payment gateways, recommendation systems, and chat support can be adjusted based on feedback.
+Continuous iteration allows quick adaptation to changing market trends.
+Scenario 2: AI-Powered Chatbot for Customer Support
+A company wants to integrate a chatbot but isn’t sure about user queries and behaviors.
+Agile allows them to start with a basic chatbot and improve it based on user interactions.
+Machine learning models can be iteratively trained with real-time data.
+Scenario 3: Mobile Game Development
+A game studio is developing a new mobile game and wants to test different mechanics.
+Agile sprints help developers release prototypes, gather user feedback, and iterate gameplay elements.
+
+13
+
+Wagile Project Scenarios
+Wagile is suited for projects that require upfront planning but also need flexibility for incremental improvements.
+Scenario 1: Banking Application Modernization
+A bank wants to update its legacy banking system while ensuring regulatory compliance.
+Waterfall is used for core banking functions that must remain stable.
+Agile is used for customer-facing features like a mobile app and personalized recommendations.
+Scenario 3: Smart City IoT Deployment
+A city is deploying a smart infrastructure with traffic sensors and energy management.
+Waterfall is used for foundational components like network setup and security protocols.
+Agile teams work on real-time data dashboards, predictive analytics, and citizen applications.
+
+14

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Terms</title>
+    <style>
+        .term-form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #f9f9f9;
+        }
+        .term-form input, .term-form button, .term-form select {
+            margin: 5px;
+            padding: 5px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Terms</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li style="color: {% if category == 'danger' %}red{% elif category == 'success' %}green{% else %}black{% endif %};">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="get" style="text-align:center;">
+        <label>Select Year:</label>
+        <input type="number" name="year" value="{{ selected_year }}" min="2000" max="2100">
+        <button type="submit">Go</button>
+    </form>
+    <form method="post" class="term-form">
+        <h2>Set Term Dates for {{ selected_year }}</h2>
+        {% for term_number in range(1, 5) %}
+            <div style="margin-bottom: 10px;">
+                <strong>Term {{ term_number }}:</strong><br>
+                <label>Start Date:</label>
+                <input type="date" name="start_date_{{ term_number }}" value="{{ terms[term_number].start_date if terms[term_number] is defined else '' }}">
+                <label>End Date:</label>
+                <input type="date" name="end_date_{{ term_number }}" value="{{ terms[term_number].end_date if terms[term_number] is defined else '' }}">
+            </div>
+        {% endfor %}
+        <button type="submit">Save Terms</button>
+    </form>
+    <a href="/account">Back to Account</a>
+</body>
+</html> 

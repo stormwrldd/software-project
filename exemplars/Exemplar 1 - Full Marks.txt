@@ -1,0 +1,2632 @@
+Contents
+Defining the problem ...............................................................................................................................4
+Identification of the problem (Problem statement) ............................................................................4
+Communication to establish requirements (Interviews, observation and questionnaires) ................4
+Idea generation (Alternative solutions) ...............................................................................................5
+Investigate alternative approaches to a software solution (feasibility study) ....................................6
+Requirements (Numbered list) ............................................................................................................6
+Develop project plan (Development approach used and Gantt chart) ...............................................6
+Understanding User Requirements .........................................................................................................7
+Design specifications ...........................................................................................................................7
+1.
+
+Data types selected..................................................................................................................7
+
+2.
+
+Appropriate data structures ....................................................................................................8
+
+Representation of the system using diagrams (CASE tools) ................................................................9
+1.
+
+Storyboard ...............................................................................................................................9
+
+2.
+
+IPO chart ..................................................................................................................................9
+
+3.
+
+Context and DFD diagrams ....................................................................................................11
+
+4.
+
+Initial structure chart .............................................................................................................11
+
+Limited prototype development .......................................................................................................12
+Consider all Social and Ethical issues that apply ...............................................................................13
+Planning and design ...............................................................................................................................14
+Interface design (Consistent, accessible, user-friendly design) .........................................................14
+Selection of software environment (OS and programming language) .............................................15
+Identification of appropriate hardware .............................................................................................16
+Data dictionary (Initial) ......................................................................................................................16
+Definition of required validation processes ......................................................................................18
+Definition of files................................................................................................................................18
+Record layout and creation ...............................................................................................................19
+Algorithm design – Structure charts and Pseudocode for main modules: .......................................20
+(Uses modular structure with appropriate control structures. Inclusion of standard or common
+routines) .............................................................................................................................................24
+Test plan.............................................................................................................................................24
+Enabling and incorporating feedback from users at regular intervals ..............................................25
+Implementation .....................................................................................................................................25
+Tools and modules used ....................................................................................................................25
+Data dictionary (Final) .......................................................................................................................26
+Solution testing and improvements ..................................................................................................29
+2
+
+Test plan.............................................................................................................................................29
+System and User documentation ......................................................................................................31
+Evidence of online help......................................................................................................................35
+Evidence of regular communication with stakeholders ....................................................................36
+Evaluation ..............................................................................................................................................36
+Testing of user requirements ............................................................................................................36
+Feedback ............................................................................................................................................36
+Evaluation of ethical and social considerations.................................................................................37
+Appendix ................................................................................................................................................37
+Project logbook ..................................................................................................................................37
+Surveys/interviews ............................................................................................................................39
+Full code listing ..................................................................................................................................40
+References and resources..................................................................................................................41
+
+3
+
+Defining the problem
+Identification of the problem (Problem statement)
+With technology rapidly evolving, the world is being introduced to new machines and applications
+that can improve our lifestyles and simplify tasks. Personal A.I assistants are very prominent, easily
+accessing information or creating daily tasks for us by simply asking them. However, these A.I can
+only be accessed through communication with voice, not allowing the user to visualise achievable
+tasks.
+Children are also using these devices as well more frequently, however, there are no smart home
+appliances designed solely for children, to encourage them to learn more.
+My solution is to design a visual A.I assistant in the form of an application, that users can access on
+electronic devices. Children will be able to communicate with a visible avatar by typing to them,
+being able to view on screen it’s capabilities or any pre-existing tasks set by the parents. The avatar
+will respond with a message that the user must read. The program will set daily questions the child
+must answer alongside a few other fun options such as the ability to watch YouTube Kids videos.
+Children will be awarded virtual currency to purchase new items for their avatar, encouraging them
+to learn more and also teaching them the basics of finance. The ability to visualise the A.I assistant
+also would allow the user to engage more efficiently with the app.
+With my pre-existing experience in graphics design, I will be able to create a visually appealing
+application that would encourage the user to continuously engage with the software.
+
+Communication to establish requirements (Interviews, observation, and
+questionnaires)
+A survey was conducted (refer to Appendix) that asked people whether they use A.I Assistants and
+what they would like to see the assistant perform, alongside asking the people regarding some
+design choices. The survey was sent to eleven people; below is a summary of the questions:
+x
+
+x
+
+x
+x
+x
+
+7/11 of the people said their family owns a smart assistant (i.e Amazon Alexa, Google
+Home).
+o Out of the seven people that responded, 3/7 said they don’t regularly use it
+considering the limited features.
+o Out of the 4/7 that said they regularly use it; it’s predominately used for small
+features.
+Only 4/5 use a voice assistant such as Siri.
+o 2/5 of the people said they generally use a voice assistant to check the weather. 1/2
+of the people also use a voice assistant to search or access information online.
+o 2/11 of the people said they use a voice assistant to play music.
+8/11 of the people said they would use a voice assistant more if they could access it visually
+instead of only engaging on an audial level.
+8/3 of the people prefer a minimalistic design over a maximalist design.
+4/5 of the people also said having an easily accessible smart assistant will benefit their life.
+o 8/11 of the people said that having an accessible smart assistant will help with daily
+tasks and planning.
+o 1/11 of the people said that having a voice assistant is very helpful as they don’t
+always have access to their phone.
+4
+
+x
+
+2/11 of the people said they don’t see a need for a smart assistant as they don’t think it will
+make a major difference in their life.
+
+It’s interesting to note that a little under a 1/3 of the people surveyed have a smart assistant already
+but rarely use it. Although not everyone uses an A.I assistant, 8/11 of the people surveyed think
+having an easily accessible A.I is beneficial, even for those that don’t regularly use other assistants.
+Having an A.I assistant accessibility more on a visual level also resonates better with the people
+surveyed, identifying the visual necessity of the program.
+To see the importance of an A.I assistant for children however, I asked my little brother who is
+halfway through primary school and his friends, a few questions. A total of five people were
+surveyed.
+x
+
+x
+x
+x
+
+When asked how often they use electronic devices (iPads, Laptops, Gaming Consoles), they
+said roughly a few hours a day. These devices are generally used solely for entertainment
+(watching videos, playing video games) as opposed to learning unless instructed for
+homework.
+Over half of the kids prefer interactive learning over other techniques.
+Over half of the kids also find homework boring.
+Almost everyone said they would love to have a robot companion to interact with, especially
+one they could customise.
+
+Idea generation (Alternative solutions)
+The common examples of A.I assistants only provide a small visual component in the form of an app.
+These apps allow the user to engage in a messaging format, requiring the user to manually ask these
+assistants each time to bring up certain tasks or inquiries. My solution will differentiate from these
+ideas by focusing primarily on the visual element, to assist the user and allow for a range of
+customisation options to suit all users.
+The app – titled WorkBuddy, was originally intended to be designed purely for adults; however, the
+decision was then made to turn it into an educational tool for kids.
+Initially, the project would’ve been made in JavaScript, with assistance from HTML and CSS. This is
+considering the efficiency in styling when using JavaScript, and the ability to create a visual
+application on the web for everyone to use. However, this idea was abandoned, and instead, the
+program will be created using Python, with other modules, considering my skill in Python is far
+greater than in JavaScript; alongside the ability to cooperate with external libraries and flexibility
+involved with writing complex algorithms.
+To design the user interface, I’ll have to use the Python module PyQt5, which uses a set of C++
+libraries. Its flexibility and accessibility make it a suitable module to use in comparison to other
+modules such as Tkinter. Various APIs will be addressed in the code to allow access to online
+features. Many of these features will be accommodated throughout various updates.
+
+5
+
+Investigate alternative approaches to a software solution (feasibility study)
+A non-software approach would be for children to acquire various study books corresponding to
+different topics. This is not cost-effective and can overcomplicate the process or bore the users.
+Parents will not be able to efficiently track their learning growth unless they’re constantly marking
+their work and may not see them performing at the best of their ability. By creating a visual
+application, especially one that interacts with the user, they will be encouraged to use the app more
+frequently as opposed to other solutions.
+
+Requirements (Numbered list)
+x
+x
+
+The user can choose the name of their avatar.
+The user must be able to customise the avatar and purchase new cosmetics.
+
+x
+
+The program must listen to the user’s input and respond appropriately.
+o The user must type their response.
+o The program must respond through text format, due to limitations in hardware.
+The program must be able to conduct basic responses to user questions or functions set by a
+parent. These include but are not limited to:
+o Tell the user the time.
+o Record any upcoming events and remind the user.
+o Set any reminders, timers, or alarms.
+o Create, edit, or delete a list.
+o Refer to external links (e.g., play a YouTube video).
+o Search the web for information and respond appropriately.
+The program must record responses to display on a visual level, so users can recall
+information.
+The program must display important tips that can assist the user.
+The program must remind the user on a daily basis to complete a set number of questions to
+record learning growth.
+All user information that is recorded must be encrypted and only readable by the program.
+The program must be accessible to those who don’t have access to Python. As such, a
+module called PyInstaller will be used to bundle the application into a single package.
+o Using this module will allow the user to run the program from the terminal without
+needing Python installers.
+The avatar can say their responses aloud to the user.
+
+x
+
+x
+x
+x
+x
+x
+
+x
+
+Develop project plan (Development approach used and Gantt chart)
+The best approach to use for this project would be ‘The Agile Approach’. This approach prioritises
+delivering the product quickly to accommodate any improvements based on market desire or
+research. The agile approach focuses more on the importance of functional software in contrast to
+documentation; to elaborate, it doesn’t diminish the need for documentation, but only
+acknowledges the minimal information required to develop the product.
+The agile approach is suitable for the program considering the importance of user interaction. The
+program is to be designed in a simple form that is readable for all users, as such user feedback is vital
+to further improve the product to a suitable standard. Therefore, updates can be efficiently
+released, allowing for further improvement with the addition of other APIs to enhance the program.
+
+6
+
+Figure 1 Gantt Chart overview of project
+
+Understanding User Requirements
+Design specifications
+1. Data types selected
+Variable
+Gender
+
+Data Type
+Int
+
+Response_score
+Required_score
+Required_words
+Input_string
+Self.get_question
+Self.Quiz
+Self.questions
+
+Int
+Int
+Int
+String
+Boolean
+Boolean
+List
+
+Example
+0
+#0 = Female
+#1 = Male
+1
+2
+2
+“Hello”
+True
+False
+“What is the weather?”
+
+The data types shown present the minimum required in order to allow the project to execute. All the
+listed data types are in accordance with the ones on the home page – Main.py. The Gender variable
+uses an integer instead of a Boolean considering the simplicity in being able to track integers across
+multiple classes. The required scores and required words are necessary to determining the best user
+response.
+
+7
+
+2. Appropriate data structures
+I have used appropriate data structures such as lists, dictionaries, and text files to store information.
+Using lists has been useful for storing a variety of specific information inputted by the user (such as
+user tasks). These lists would be written into a text file that can be retrieved later. Dictionaries would
+be used if the user wishes to input a reminder, which has a specific time structure. If the program is
+opened at that time, it will remind the user. A JSON file was also used to structure all appropriate
+program responses based on the user input, rather than having the program retrieved standard
+responses from a text file.
+Variable
+
+Data Structure
+
+Example/s
+
+Tasks
+
+Array of Information
+
+[“Spelling”, “Maths”]
+
+Reminders
+
+Python Dictionary
+
+{Reminder: 0430}
+
+Preferences
+
+Text File
+
+Check: True
+Quiz: False
+
+Bot
+
+JSON File
+
+{
+“response_type”: “greeting”,
+“user_input”: [“hello”, “hi”],
+“bot_response”: “Hey!”,
+“required_words”: []
+}
+
+8
+
+Representation of the system using diagrams (CASE tools)
+1. Storyboard
+
+2. IPO chart
+INPUT
+Account details are inputted.
+
+PROCESS
+When creating an account, the
+program will store the user’s
+details on a text file and
+encrypt it, so the user can log
+in again on the same device.
+
+User logs in.
+
+The program will check that
+the user log-in is the same as
+the details provided on
+account creation, to allow the
+user to log in.
+The A.I assistant will read the
+user’s input, converting all
+cases to lowercase. The A.I will
+remove all of the special
+characters from the message.
+Then to use the correct predetermined response, it uses a
+counter to see how many
+
+Send a message or input to A.I
+assistant.
+
+OUTPUT
+The user’s account details
+should be stored in a separate
+text file, meaning the user can
+log in and out on the same
+device.
+Note that the user has the
+option to select the
+“Remember Me” button, to
+avoid logging in every time.
+The user should be able to log
+in successfully.
+
+The A.I will then print the
+response and vocally say the
+response.
+
+9
+
+The Customise button is
+clicked
+
+The Parents’ Options is clicked
+
+required words allocate with
+the user input, and then
+determines the best response.
+Program will run a function to
+redirect user to new page.
+From there, the user can select
+various outfits or cosmetics.
+Variables will be declared to
+allow for these customisation
+changes. Each clothing section
+will be divided to
+accommodate for the different
+animations and variety of
+clothes.
+Program will use a function to
+load up new page.
+Statistics will be generated
+based off user’s performance.
+
+A tip or hint is clicked.
+The Settings button is clicked.
+
+The Quit button is clicked.
+
+Program will use a function to
+load up all hints.
+Program will use a function to
+load up new page.
+
+A function will run which
+causes the program to be
+properly terminated.
+
+User is given option to change
+avatar’s looks.
+
+The program will redirect the
+user to the Parents’ Options
+page. From there, parents can
+add certain options,
+restrictions, or requests such
+as the number of questions
+given per day or the option to
+view their child’s progress.
+Users can progress and learn
+all features.
+The program will redirect the
+user to the Settings page
+where they can change a few
+features to their liking.
+From there, the user can
+change multiple settings such
+as the program’s background
+and the avatar.
+The program closes.
+
+10
+
+3. Context and DFD diagrams
+
+4. Initial structure chart
+
+11
+
+Limited prototype development
+
+Figure 2 Main Page
+
+Figure 3 Shop Page
+
+Figure 4 Parent's Page
+
+Figure 5 Main Page with updated cosmetics
+
+Figure 6 User's Task Screen
+
+12
+
+A prototype has been developed for WorkBuddy which shows the bare minimum of the program.
+The aim of the prototype is to present the ability to interact with the assistant. The user can ask it
+certain questions as outlined in Figure 2, where the user has asked the program “What is the tallest
+mountain?”. The user also has the option of interacting with the assistant through dialogue such as
+asking it “What do you like?” – where the program will respond “I like cars and sandwiches”, to
+encourage the user to engage with the program more.
+The user can also answer a set of questions set by the parent, by asking the assistant to start the
+quiz. The user must answer all the questions by inputting an answer.
+The user can also click on the tasks page to bring them to another page, as shown in Figure 6, where
+they can remove any completed tasks can earn a set number of credits.
+Figure 3 shows the bare minimum of how the shop will work, allowing the user to purchase various
+items that they can then equip (as presented in Figure 5). A credit counter is displayed in the top
+right, indicating how many credits the user has to spend.
+Figure 4 shows the Parent’s Page, where they can add tasks and reminders for the user. Alongside
+they can add questions for the child to complete by clicking on each respective box, which will lead
+them to a different screen.
+Figure 5 shows the program with the cosmetics equipped from the shop.
+The prototype is meant to present the way the application functions, as such there is no emphasis
+on visual representation at the moment. Some functions will need to be fixed and improved upon
+such as the ability to set daily questions for the user.
+
+Consider all Social and Ethical issues that apply
+As WorkBuddy is intended for children to use, various measures have been taken into consideration
+to avoid exposing children to harmful information and to ensure the user is safe when accessing the
+program.
+x
+
+In regard to online safety, upon account creation, parents will be asked if they’re
+comfortable with having their child access information online.
+o If parents are comfortable, users will be allowed to ask the program questions that
+will require research online. For example, the user could ask the program “Who is
+the prime minister?” and get a response saying “ANTHONY ALBANESE”.
+ Parents will have access to view what their child searches for.
+o If parents are not comfortable, the program will not refer to online answers.
+o Note that safe search is permanently set to ‘on’. Users will not be able to search for
+taboo topics.
+o Whether or not the parent accepts the agreement, the user will be allowed to ask
+basic maths questions (such as “what is 12 x 3” and get a response “the answer is
+“36”).
+ Note that no part of the actual program encourages or requires the user to
+use the internet. All research is conducted through an API, meaning that the
+program can access various pages or blogs such as Wikipedia through an
+
+13
+
+x
+
+x
+
+encrypted search engine called DuckDuckGo. The user cannot interact with
+others using the program.
+All details (username, password) will be encrypted and privately stored. The parent will be
+the only one in charge of this.
+o Note that the account creation is purely for demonstration purposes – the user
+won’t be able to actually access the account on different devices.
+Although the user can purchase items using coins, they cannot use real currency to purchase
+coins.
+
+Planning and design
+Interface design (Consistent, accessible, user-friendly design)
+The interface was designed with the target audience in consideration, using a simple colour scheme
+and minimalistic icons. Vibrant colours are used throughout to convey a happy mood for the users.
+The icons are clear and easy to use, simplifying the user’s interaction and making it very accessible.
+Therefore, by utilising more imagery than text, it advocates for a user-friendly design, appearing
+colourful and appealing. The interface design is consistent across all screens, maintaining screen
+dimensions, text sizes, colour schemes and icons.
+The user’s avatar will be displayed on the home screen as seen in Figure 6. The user has the option
+to customise the avatar’s skin tone (Light, Fair, Tan, Dark), hairstyle and clothes as shown in Figure 9,
+being able to purchase clothing options as shown in Figure 8. The user will have a variety of options
+to choose from when designing their avatar to accommodate an inclusive experience for each user.
+When necessary, a black border that offsets the icon will appear to indicate that option has been
+selected, similar to how a radio button functions – as shown in Figure 9. Figure 7 also demonstrates
+that coloured buttons will be used to help distinguish between the two choices available in adding
+and removing tasks or questions.
+
+14
+
+Figure 6 Main Page Design Interface
+
+Figure 7 Parent’s Page Design Interface
+
+Figure 8 Shop Design Interface
+
+Figure 9 Customisation Design Interface
+
+Figure 10 Shows a variety of avatars that were made from the available options.
+
+Selection of software environment (OS and programming language)
+15
+
+WorkBuddy will be coded in Python using PyCharm as the integrated development environment
+(IDE). I’ve chosen PyCharm as the IDE considering that I’ve worked with PyCharm in the past and find
+it flexible in installing external modules and connecting APIs, not to mention it’s simple to initiate in
+comparison to Visual Studio Code.
+I’ll be using Python 3.10 considering that I have extensive knowledge of the language, and I find it
+simpler to utilise external modules and APIs. Originally, I would’ve developed the program using
+JavaScript, albeit my knowledge of JavaScript is not as strong as Python, despite JavaScript being the
+more suitable option for front-end development and the user face interaction considering it’s
+connection with HTML and CSS.
+Despite the program being developed on a MacOS, the program would also be available for
+Windows, MacOS and Linux – considering that they’re all supported by PyCharm.
+
+Identification of appropriate hardware
+WorkBuddy should be able to function on all different types of computers (Windows, Apple, etc),
+running off the terminal as a result of PyInstaller. Otherwise, the user would require a Python IDE in
+order to run the program.
+The program was tested on a 13” MacBook Pro with M1 Chip. The computer has 8GB of Memory
+available, with a 13.3” display (2560 x 1600).
+
+Data dictionary (Initial)
+Data ID
+File
+
+Type
+Dictionary
+
+Format
+{“Key”: “Definition”}
+
+Description
+Loads in all the
+responses the
+program can give.
+
+myWindow
+
+Class
+
+class
+myWindow(QMainWindow)
+
+Represents the
+window layout.
+
+Input1
+
+String
+
+“stringName”
+
+Questions
+
+List
+
+[‘Key’]
+
+Response_score
+
+Int
+
+NUMBER
+
+Required_score
+
+Int
+
+NUMBER
+
+The user input to
+ask the program a
+question or
+initiate a task.
+Reads the
+questions set from
+the Tasks.txt and
+appends to a list.
+Based on user
+input, a counter is
+added to conclude
+the best answer.
+Uses a counter to
+check if user’s
+questions align
+with the required
+
+Example
+{
+“Reponse_type”: “greeting”,
+“user_input”: [“hello”, “hey”]
+“bot_response”: “Hey There!”
+“required_words”: []
+}
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Main Page”)
+“What time is it?”
+
+[“What does your skull protect?”,
+“Brain”]
+
+0
+
+3
+
+16
+
+Counter1
+
+Int
+
+NUMBER
+
+Counter2
+
+Int
+
+NUMBER
+
+Tasks.txt
+
+Text File
+
+Text
+
+Wardrobe.txt
+
+Text File
+
+Text
+
+Character.txt
+
+Text File
+
+Text
+
+View
+
+Class
+
+Class View(QWidget)
+
+Parents
+
+Class
+
+Class Parents(QWidget)
+
+Reminders
+
+Dictionary
+
+{“Key”: “Definition”}
+
+Tasks
+
+List
+
+[“Key”]
+
+remind_view
+
+String
+
+“stringName”
+
+task_view
+
+String
+
+“stringName”
+
+Shop
+
+Class
+
+Class Shop(QWidget)
+
+Credits
+
+Int
+
+NUMBER
+
+Credits.txt
+
+Text File
+
+Text
+
+Settings
+
+Class
+
+Class Settings(QWidget)
+
+words for a
+response.
+A counter to
+progress through
+each question in
+Questions.
+A counter to
+progress through
+each answer in
+Questions.
+A text file which
+contains all user
+tasks to be viewed
+on the home page.
+A text file which
+contains all
+clothes purchased
+and character
+options.
+A text file that
+contains all
+equipped clothing.
+Represents the
+window layout for
+viewing user tasks.
+Represents the
+Parent’s Page
+Adds reminders
+for the user to
+complete
+Add tasks for the
+user to complete
+User can input a
+string that gets
+added to the
+reminders
+User can input a
+string that gets
+added to the
+tasks.
+Represents the
+Shop
+Represents the
+number of credits
+the user has.
+Contains the
+number of credits
+the user has
+Represents the
+Settings Page
+
+1
+
+2
+
+Maths-HW, Reading
+
+brown-hair1
+red-longsleeve
+black-pants
+caucasian
+red-longsleeve (EQUIP1)
+black-pants (EQUIP2)
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Tasks View”)
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Parents”)
+{“Sport”: “11:30am”}
+
+[“Maths-HW”, “Spelling”]
+Sport: 11:30am
+
+Maths-HW, Spelling
+
+350
+
+350
+
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Settings”)
+
+17
+
+Preferences.txt
+
+Text File
+
+Text
+
+Random_list
+
+List
+
+[“Key”]
+
+Contains any
+changes to the
+program the user
+has enabled.
+A set of random
+responses if the
+program doesn’t
+understand the
+user response.
+
+Check: True
+(This ensures if the program can
+search the web or not)
+[“Try again”, “I don’t understand”].
+
+Definition of required validation processes
+Considering that the majority of user inputs are strings, the need for using a validation process is
+very limited, except for in the next few areas.
+Process
+Completing task requires user to enter integer
+
+User enters input to avatar that it doesn’t
+recognise
+
+Solution
+The program checks if the response is not a
+string and refuses to progress until the user
+enters a valid response.
+The avatar automatically defaults to a response
+saying “Sorry, I don’t understand”.
+
+Definition of files
+Colour
+Skin Tone
+Number
+
+Red, Blue, Green, Yellow, White, Black
+Light, Fair, Tan, Dark
+1, 2, 3, 4
+
+The following files are all cosmetics for the avatar:
+x
+x
+x
+x
+x
+x
+x
+x
+x
+x
+
+_Boots [Colour].png
+_Female ([Skin Tone]).png: the main avatar.
+_Female [Colour] Hair-[Number].png
+_Female [Colour] Hair-[Number] bottom.png
+_Male [Colour] Hair-[Number].png
+_Male ([Skin Tone]).png: the main avatar.
+_Long-Sleeve ([Colour]).png
+_Pants ([Colour]).png
+_Skirt ([Colour]).png
+_T-Shirt ([Colour]).png
+
+The remainder of the files are all provided with a brief explanation:
+x
+x
+x
+x
+x
+
+Bot.json: the file that contains all the avatar responses.
+Character.txt: a text file that documents all equipped clothing.
+Credits.txt: a text file that documents the number of credits the user has.
+Main.py: the main Python file which runs the program.
+Parents.py: the parent’s page where a parent can add tasks, reminders, or questions for the
+user, or can also view their progress.
+18
+
+x
+x
+x
+x
+x
+x
+x
+x
+x
+
+Preferences.txt: a text file that flags for any changes to the program.
+Questions.txt: a text file that documents any set questions the parent has chosen for their
+child to answer.
+Random_Response.py: the file that contains the avatar responses to unidentified questions.
+Settings.py: the settings page where the user can manage items and restrictions.
+Shop.py: the shop page where the user can purchase and equip cosmetics.
+Tasks.txt: a text file where all the recorded tasks from the parent’s page are stored.
+Tasks-Box.png: box outline for the program.
+userTasks.py: a page the user can access to view and complete set tasks.
+Wardrobe.txt: a text file that documents all the clothes the user has purchased and
+character options.
+
+Record layout and creation
+I’ve used Python lists, dictionaries and text files to store data from the program. Character.txt is a file
+that contains all the equipped clothing options, separating each piece of clothing on a different line.
+Each line includes (EQUIP X) with X being a number ranging from 1 – 6, to correspond with a clothing
+type and to avoid clothes overlapping each other.
+blue-shirt (EQUIP1)
+black-pants (EQUIP2)
+red-cap (EQUIP5)
+red-shoes(EQUIP3)
+
+Lists and dictionaries are also stripped of specific characters – (), “” and [], so they can be written in a
+text file and then recalled again later. An example of preferences.txt is shown below:
+Check: True
+Quiz: False
+
+These indicators are in place to determine whether the user has access to these features – the ability
+to search online and the ability to complete a quiz. Instead of using booleans within the code, these
+text files allow for these features to be inaccessible across all user sessions.
+I’ve also used a JSON file as a system for the program to recall and respond to user inputs. Using this
+method, the program can check the user input for specific words and see if they meet the
+requirements of what is placed there.
+[
+
+{
+
+},
+{
+
+},
+{
+
+},
+
+"response_type": "greeting",
+"user_input": ["hello", "hi", "hey"],
+"bot_response": "Hey there!",
+"required_words": []
+"response_type": "greeting",
+"user_input": ["see you", "goodbye", "bye"],
+"bot_response": "See you later!",
+"required_words": []
+"response_type": "greeting",
+"user_input": ["nice", "to", "meet", "you"],
+"bot_response": "The pleasure is all mine!",
+"required_words": ["nice", "meet", "you"]
+},
+
+19
+
+{
+
+"response_type": "interest",
+"user_input": ["what", "do", "you", "like?"],
+"bot_response": "I like shiny cars... and sandwiches",
+"required_words": ["what", "like"]
+
+},
+{
+"response_type": "homework",
+"user_input": ["What", "homework", "do", "I", "have"],
+"bot_response": "You have...",
+"required_words": ["homework"]
+},
+]
+
+Algorithm design – Structure charts and Pseudocode for main modules:
+The following Pseudocode is presented for the main.py file, which focuses on the home page. To
+run, the program needs to have PyQt5, duckduckgo_search, sys, json, re, time and os imported. The
+program uses the bot.json file and random_responses.py file which have not been included, but they
+must also be imported. The pseudocode presents some basic functions the program can execute
+such as the ability to tell the time, check reminders, start a quiz and search the web for information.
+This may be updated in the future to allow for further possibilities, such as the ability to use a
+stopwatch.
+BEGIN main
+current_time = time.ctime() #Python module
+CLASS myWindow:
+SET screensize(700, 1200)
+SET screentitle("Main Page")
+Question = []
+Answer = []
+FUNCTION load_json(file):
+GET file.json
+OPEN file as bot_responses
+IF file:
+DISPLAY ("File loaded successfully")
+RETURN bot_responses
+ENDIF
+CLOSE
+END FUNCTION
+FUNCTION getResponse(input_string):
+GET input_string
+GLOBAL response_index
+split_message = SPLIT(input_string)
+Score_list = []
+FOR response in response_data:
+response_score = 0
+required_score = 0
+required_words = response["required_words"]
+IF required_words THEN:
+FOR word in split_message:
+IF word in required_words THEN:
+required_score = required_score + 1
+IF required_score == COUNT(required_words):
+FOR word in split_message:
+IF word in response["user_input"]:
+response_score = response_score + 1
+ENDIF
+NEXT word in split_message
+ENDIF
+APPEND response_score TO score_list
+
+20
+
+NEXT word in split_message
+ENDIF
+NEXT response in response_data
+best_response = MAX of score_list
+response_index = INDEX best_response TO score_list
+IF input_string = "":
+DISPLAY ("Please type something")
+END IF
+IF best_response NOT 0:
+DISPLAY response_data[response_index]["bot_response"]
+END IF
+END FUNCTION
+FUNCTION initUI:
+background = QLABEL
+background_image = QPIXMAP("Background.png")
+SET PIXMAP background_image TO background
+input1 = QLINEEDIT
+response = QLABEL
+response2 = QLABEL
+get_question = FALSE
+questions = []
+tasks = QLABEL
+tasks_view = QLABEL
+counter1 = 0
+counter2 = 1
+quiz = FALSE
+next_question = FALSE
+hair = QLABEL
+hair2 = QLABEL
+avatar = QLABEL
+pants = QLABEL
+skirt = QLABEL
+shirt = QLABEL
+label = QLABEL
+#These labels are necessary FOR setting each image
+user_button = QPUSHBUTTON
+CONNECT user_button TO nameEnter()
+send_icon = QICON("Icon_Send.png")
+SET ICON send_icon to user_button
+setting_button = QPUSHBUTTON
+CONNECT setting_button TO moveSetting()
+setting_icon = QICON("Icon_Setting.png")
+SET ICON setting_icon to setting_button
+parent_button = QPUSHBUTTON
+CONNECT parent_button TO moveParent()
+parent_icon = QICON("Icon_Parent.png")
+SET ICON parent_icon to parent_button
+shop_button = QPUSHBUTTON
+CONNECT shop_button TO moveShop()
+shop_icon = QICON("Icon_Shop.png")
+SET ICON shop_icon to shop_button
+IF gender = 0:
+OPEN ("wardrobe.txt") as file:
+FOR line in file:
+CASEWHERE (Colour-Hair in line):
+HairStyle = QPIXMAP("Hair.png") #Images vary with each hairstyle
+ELSE IF... #Applies FOR each hairstyle
+END IF
+IF (Skin-Tone in line):
+Chara = QPIXMAP("Female.png") #Images vary with each skin tone
+ELSE IF... #Applies FOR each skin tone
+END IF
+CLOSE
+ELSE:
+OPEN ("wardrobe.txt") as file:
+FOR line in file:
+IF (Colour-Hair in line):
+HairStyle = QPIXMAP("Hair.png") #Images vary with each hairstyle
+ELSE IF... #Applies FOR each hairstyle
+END IF
+IF (Skin-Tone in line):
+Chara = QPIXMAP("Male.png") #Images vary with each skin tone
+
+21
+
+ELSE IF... #Applies FOR each skin tone
+END IF
+CLOSE
+END IF
+OPEN ("wardrobe.txt") as file:
+FOR line in file:
+IF (Colour-Clothing in line):
+Clothes = QPIXMAP("Clothing.png") #Images vary with each clothing alternative
+ELSE IF... #Applies FOR every clothing alternative
+END IF
+CLOSE
+OPEN("tasks.txt") as file:
+FOR line in file:
+line = STRING(line)
+setText OF tasks_view TO line
+END FUNCTION
+FUNCTION moveSetting:
+from settings import Settings
+newpage = Settings()
+SHOW newpage
+CLOSE initUI
+END FUNCTION
+FUNCTION moveParents:
+from parents import Parents
+newpage = Parents()
+SHOW newpage
+CLOSE initUI
+END FUNCTION
+FUNCTION userTasks:
+from userTasks import View
+newpage = View()
+SHOW newpage
+CLOSE initUI
+END FUNCTION
+FUNCTION moveShop:
+from shop import Shop
+newpage = Shop()
+SHOW newpage
+CLOSE initUI
+END FUNCTION
+FUNCTION nameEnter:
+IF get_question = FALSE:
+Quiz = FALSE
+Action()
+ELSE IF get_question = TRUE AND Quiz = FALSE:
+Get_Answer()
+ELSE IF Quiz = TRUE AND get_question = TRUE:
+Put_Answer()
+CLEAR input1
+END FUNCTION
+FUNCTION Action:
+response_data = LOAD("bot.json")
+user_input = name
+DISPLAY (name)
+programResponse = getResponse(user_input)
+DISPLAY (programResponse)
+runInput()
+END FUNCTION
+FUNCTION update:
+response.adjustSize()
+END FUNCTION
+FUNCTION runInput:
+SET RESPONSE TEXT TO programResponse
+IF (response_data[response_index]["response_type"] == "questions"):
+OPEN ("preferences.txt") as file:
+IF ("Check: False") NOT in file:
+ask_question()
+
+22
+
+END IF
+IF (response_data[response_index]["response_type"] == "quiz"):
+OPEN("preferences.txt") as file:
+FOR line in file:
+STRIP line
+APPEND line to questions
+ans_question()
+END IF
+IF (response_data[response_index]["response_type"] == "time"):
+SET RESPONSE2 TEXT TO current_time
+ELSE:
+SET RESPONSE2 TEXT TO ("")
+END IF
+FUNCTION ask_question:
+get_question = TRUE
+FUNCTION get_answer:
+keywords = input1
+results = ddg(keywords)
+DISPLAY results
+get_question = FALSE
+FUNCTION ans_question:
+IF (questionCheck NOT 0):
+OPEN ("preferences.txt") as file:
+check = READ file
+IF ("Quiz: False" in check):
+SET response TEXT TO ("Sorry, no quiz today")
+RETURN
+ELSE:
+lenQuiz = (COUNT(questions) - 1)
+IF counter1 NOT = (lenQuiz + 1):
+quiz = TRUE
+ELSE:
+quiz = FALSE
+counter1 = 0
+END IF
+ask_question()
+IF quiz == TRUE:
+SET response TEXT TO (questions[counter1])
+END IF
+END IF
+END IF
+END FUNCTION
+FUNCTION put_answer:
+answer = input1
+answer = LOWER(answer)
+DISPLAY (answer)
+IF answer == (questions[counter2])
+SET response TEXT TO "Correct"
+OPEN ("questions.txt") as file:
+filedata = READ file
+CLOSE
+filedata = REPLACE (questions[counter2]) WITH ("Correct")
+OPEN ("questions.txt") as file:
+WRITE filedata IN file
+CLOSE
+ELSE:
+SET response TEXT TO "Incorrect. The answer is..." (questions[counter2])
+OPEN ("questions.txt") as file:
+filedata = READ file
+CLOSE
+filedata = REPLACE (questions[counter2]) WITH ("Incorrect")
+OPEN ("questions.txt") as file:
+WRITE filedata IN file
+CLOSE
+END IF
+counter1 = counter1 + 2
+counter2 = counter2 + 2
+SET response TEXT TO "Next question"
+IF counter1 NOT = (lenQuiz + 1):
+ans_question()
+ELSE:
+get_question = FALSE
+SET response TEXT TO ("Congratulations")
+OPEN ("preferences.txt") as file:
+
+23
+
+filedata = READ file
+CLOSE
+filedata = REPLACE ("Quiz: True", "Quiz: False")
+OPEN ("preferences.txt") as file:
+WRITE filedata IN file
+CLOSE
+END IF
+ENDCLASS
+
+(Uses modular structure with appropriate control structures. Inclusion of standard or
+common routines)
+Test plan
+Throughout the development cycle, I’ve been using unit testing to test each individual component of
+code, isolating smaller portions to ensure the whole program works. As each code is isolated to each
+screen, I would work on each file that’s associated with each screen, being able to fix any correlating
+issues that may affect the user’s interaction on that screen. Therefore, I can also work
+simultaneously on my code while debugging without having to first program all the necessary code
+before debugging begins.
+Below is the initial test plan to be used for each section in the prototyping phase.
+Test
+Test Description
+Number
+1.1
+Test valid input for
+chatbot.
+1.2
+Test invalid input for
+chatbot.
+1.3
+Test time command in
+chatbot.
+1.4
+Test weather command in
+chatbot.
+1.5
+Test quiz function in
+chatbot
+2.1
+Test button click for
+sending input.
+2.2
+Test button click for each
+individual page.
+3.1
+Test the ability to type a
+task into the program.
+3.2
+Test the ability to add and
+remove tasks through
+button click.
+3.3
+Test the ability to add and
+remove reminders
+through button click.
+3.4
+Add task / reminder to
+.txt file.
+4.0
+Test shop purchase
+
+Test Data
+
+Expected Outcome
+
+“Hello”
+
+“Hello”
+
+“oi”
+
+“I don’t understand”
+
+“What is the time?”
+
+“The time is… Thu Jun 8 14:45”
+
+“What is the
+weather?”
+“Quiz”
+
+“It is 17.0 degrees Celsius. It is warm.
+Perfect weather”.
+“Question 1…” User can input answer.
+
+Button click.
+
+Input submitted, chatbot responds.
+
+Button click.
+
+Input submitted, page change.
+
+“Spelling”
+
+“Spelling”
+
+Button click.
+
+“Add task” and “Remove task” appear
+respectively.
+
+Button click.
+
+“Add reminder” and “Remove
+reminder” appear respectively.
+
+“Spelling, Maths”
+
+Spelling,
+Maths
+Credits are subtracted (100 credits),
+clothing are added to wardrobe.
+
+50 credits subtracted
+from 150
+
+24
+
+4.1
+4.2
+
+Test button appears in
+customisation
+Test radio buttons for
+character customisation
+
+Button click.
+
+Background fades, only shows contents
+from button.
+
+Radio button click
+
+Clothing added to character.txt, displays
+clothing.
+
+Enabling and incorporating feedback from users at regular intervals
+Throughout the creation of the program, I would ask my little brother and his friends to try
+WorkBuddy – with some assistance from me to explain key parts. Having my target audience use
+WorkBuddy throughout its development cycle allowed me to understand what elements must be
+improved to satisfy consumer demand.
+When designing the user interface, I decided to maintain a similar layout to what was present in the
+storyboard, as I received adequate feedback from users for its recognisable buttons. I used a bright
+colour palette as the users were satisfied with the colourful and happy tone. They all thought that
+having a customisable character was a terrific concept, and they all enjoyed experimenting with
+creating different characters. However, they all wished that there were more clothing options
+present, which I have taken into consideration as an update to the program once all key features
+have been implemented. They’ve also requested more available responses from the avatar as well.
+After the limited prototype development had been created, I presented WorkBuddy to a few adults
+to have them test out the Parent’s Page. Despite the limited visuals used, they found WorkBuddy to
+be beneficial and simple, albeit they believed there should be more features available such as the
+ability to track the child’s progress.
+
+Implementation
+Tools and modules used
+Throughout the development of my program, I used a variety of case tools to manage my process,
+organise my coding and assist with the visual representation of my program.
+To assist with the planning, I used Google Sheets to create a Gantt Chart, to track my progress with
+each major milestone for the documentation. By creating a Gantt Chart, I could ensure I maintain
+consistency with my work. I decided to use Google Sheets considering that the application already
+had pre-existing templates that I could easily edit and refine. This is more beneficial than having to
+create a brand-new template using Microsoft Excel, which would take the necessary time to
+complete.
+To create the data flow diagram and structure chart, I used LucidChart, considering its popularity
+and its ability to create highly advanced diagrams efficiently and easily. Alongside its compatibility, it
+can be accessed via the web without any necessary downloads required. By creating a data flow
+diagram, I could easily visualise where each segment of data is meant to be directed when coding my
+program to avoid overcomplicating the system. By also creating a structure chart I can visualise how
+the user should interact with the software and what’s expected with each direction of movement
+across screens. I can also observe where I can expand on my program without interfering with other
+major screens through the structure chart. Using LucidChart allows for me to efficiently create the
+25
+
+data flow diagram and the structure chart, compared to a scenario where I created these diagrams
+using Adobe Illustrator, which would take tremendous time to adjust each variable and its
+movement.
+Nevertheless, I used Adobe Illustrator to assist with the program's visual design. I created the
+storyboard using Illustrator, allowing me to freely create various buttons and icons. The skills I used
+for creating the storyboard were transferrable for creating the design interface, allowing me to
+rapidly create a design I later expanded on with great precision. Using Adobe Illustrator allowed me
+to transfer all pre-existing character designs that I had created earlier for the program. I can also
+easily change any of the colours, text sizes or line weights without complications.
+
+Figure 11 shows the icons for Google Sheets, LucidChart and Adobe Illustrator
+During the implementation stage of my programming, I used a wide variety of libraries to help
+achieve the desired final product. To create the visual application of the program, I used PyQt5 and
+it’s extensive libraries. PyQt5 allowed me to create a virtual screen in which the user can interact as
+opposed to running purely off the terminal. Using PyQt5 allowed me to implement various buttons
+and other on-screen commands that the user can use to direct them towards other screens or to
+perform a task such as creating a reminder or interacting with their virtual avatar.
+I’ve also used the DuckDuckGo API to allow the user to retrieve information from the web. As the
+user asks the avatar a question, they can expect a short paragraph that should answer their
+question. This API was used considering its safe-search options which makes it beneficial for the
+target market. The API was added to allow children to search for answers online to help them
+answer homework questions or to benefit their learning.
+Another API that’s been used is the python-weather API, which retrieves the temperature of a
+specific city, and returns it in Celsius degrees. This weather API was used for the user experience if
+they decide to ask their avatar about the weather.
+For the voices, a module called pyttsx3 is used, which converts text to speech and then saves the
+audio as an MP3 file. Essentially, every time the avatar gives a response to the user, it reads out the
+response aloud. This module is used in a separate file from the rest of the program; since running
+the module at the same time as the rest of the program causes it to crash. As such, the module saves
+the audio as an MP3 file, which is then played in the main files through a module called playsound.
+The program distinguishes between the male and female audio files and then plays the correct one.
+
+Data dictionary (Final)
+Data ID
+File
+
+Type
+Dictionary
+
+Format
+{“Key”: “Definition”}
+
+Description
+Loads in all the
+responses the
+program can give.
+
+Example
+{
+“Reponse_type”: “greeting”,
+“user_input”: [“hello”, “hey”]
+
+26
+
+“bot_response”: “Hey There!”
+“required_words”: []
+
+myWindow
+
+Class
+
+class
+myWindow(QMainWindow)
+
+Represents the
+window layout.
+
+Input1
+
+String
+
+“stringName”
+
+Questions
+
+List
+
+[‘Key’]
+
+Response_score
+
+Int
+
+NUMBER
+
+Required_score
+
+Int
+
+NUMBER
+
+Tasks.txt
+
+Text File
+
+TEXT
+
+Wardrobe.txt
+
+Text File
+
+TEXT
+
+The user input to
+ask the program a
+question or initiate
+a task.
+Reads the
+questions set from
+the Tasks.txt and
+appends to a list.
+Based on user
+input, a counter is
+added to conclude
+the best answer.
+Uses a counter to
+check if user’s
+questions align
+with the required
+words for a
+response.
+A text file which
+contains all user
+tasks to be viewed
+on the home page.
+A text file which
+contains all clothes
+purchased and
+character options.
+
+Character.txt
+
+Text File
+
+TEXT
+
+View
+
+Class
+
+Class View(QWidget)
+
+Parents
+
+Class
+
+Class Parents(QWidget)
+
+Reminders
+
+Dictionary
+
+{“Key”: “Definition”}
+
+Tasks
+
+List
+
+[“Key”]
+
+remind_view
+
+String
+
+“stringName”
+
+A text file that
+contains all
+equipped clothing.
+Represents the
+window layout for
+viewing user tasks.
+Represents the
+Parent’s Page
+Adds reminders for
+the user to
+complete
+Add tasks for the
+user to complete
+User can input a
+string that gets
+added to the
+reminders
+
+}
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Main Page”)
+“What time is it?”
+
+[“What does your skull protect?”,
+“Brain”]
+
+0
+
+3
+
+Maths-HW, Reading
+
+Male
+Light
+brown-hair1
+red-longsleeve
+black-pants
+red-longsleeve (EQUIP1)
+black-pants (EQUIP2)
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Tasks View”)
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Parents”)
+{“Sport”: “11:30am”}
+
+[“Maths-HW”, “Spelling”]
+Sport: 11:30am
+
+27
+
+task_view
+
+String
+
+“stringName”
+
+Shop
+
+Class
+
+Class Shop(QWidget)
+
+Credits
+
+Int
+
+NUMBER
+
+Credits.txt
+
+Text File
+
+TEXT
+
+Customise
+
+Class
+
+Class
+Customisation(QWidget)
+
+Settings
+
+Class
+
+Class Settings(QWidget)
+
+Preferences.txt
+
+Text File
+
+TEXT
+
+Random_list
+
+List
+
+[“Key”]
+
+Background
+
+Image
+
+Background_Field.png
+
+userValue
+
+Boolean
+
+TRUE / FALSE
+
+passwordValue
+
+Boolean
+
+TRUE / FALSE
+
+username
+
+String
+
+STRING
+
+password
+
+String
+
+STRING
+
+User can input a
+string that gets
+added to the tasks.
+Represents the
+Shop
+Represents the
+number of credits
+the user has.
+Contains the
+number of credits
+the user has
+Represents the
+customisation
+page.
+Represents the
+Settings Page
+Contains any
+changes to the
+program the user
+has enabled.
+A set of random
+responses if the
+program doesn’t
+understand the
+user response.
+The backdrop for
+the home page
+A marker that
+checks if the user
+has an eligible
+username.
+A marker that
+checks if the user
+has an eligible
+password.
+Converts the user
+input from the
+text-box into a
+string to be
+written into the
+system.
+Converts the user
+input from the
+text-box into a
+string to be
+written into the
+system.
+
+Maths-HW, Spelling
+
+350
+
+350
+
+Self.setGeometry(300, 300, 300,
+300)
+Self.setWindowTitle(“Settings”)
+Check: True
+(This ensures if the program can
+search the web or not)
+[“Try again”, “I don’t understand”].
+
+Background_Night.png
+True
+
+False
+
+JohnDoe
+
+2023
+
+28
+
+Solution testing and improvements
+Considering the project's small scale, it was not worthwhile to use external software or manually
+create a program to automate and test some functions, especially considering the limited number of
+tests required for the satisfaction of the program.
+To avoid any significant losses, a backup of WorkBuddy would be implemented when a major section
+was added or there was a possibility of any prevention continuing. However, as each page of the
+project is allocated to a different file, if one file is not functioning properly, I can quarantine that file
+until a fix is implemented.
+
+Test plan
+Below is the updated test plan, which includes additional testing of newly implemented features.
+Test
+Test
+Number Description
+1.1
+Test valid
+input for
+chatbot.
+1.2
+Test invalid
+input for
+chatbot.
+1.3
+Test time
+command in
+chatbot.
+1.4
+Test weather
+command in
+chatbot.
+
+Test Data
+
+Expected
+Outcome
+“Hello”
+
+Actual
+Outcome
+“Hello”
+
+Evidence
+of Testing
+“Hello”
+
+Changes Made
+
+“oi”
+
+“I don’t
+understand”
+
+“I don’t
+understand”
+
+“oi”
+
+None
+
+“What is
+the time?”
+
+“The time
+is… Thu Jun
+8 14:45”
+“It is 17.0
+degrees
+Celsius. It is
+warm.
+Perfect
+weather”.
+“Question
+1…” User
+can input
+answer.
+
+“The time
+is… Thu Jun
+8 14:45”
+“It is 17.0
+degrees
+Celsius. It is
+warm.
+Perfect
+weather”.
+“I don’t
+understand”
+
+“What is
+the
+time?”
+“What is
+the
+weather?”
+
+Changes to text
+style.
+
+1.5
+
+Test quiz
+function in
+chatbot
+
+“Quiz”
+
+“Quiz”
+
+Input
+submitted,
+chatbot
+responds.
+
+Chatbot
+response.
+
+Button
+click.
+
+Quiz function
+was removed
+from the main
+page, instead
+the user is redirected to the
+quiz page.
+Change styling
+of button.
+
+2.1
+
+Test button
+click for
+sending
+input.
+
+Button
+click.
+
+“Hello”
+
+“What is
+the
+weather?”
+
+None
+
+Changes to text
+style.
+
+29
+
+2.2
+
+3.1
+
+3.2
+
+3.3
+
+3.4
+
+4.0
+
+Test button
+click for each
+individual
+page.
+Test the
+ability to
+type a task
+into the
+program.
+Test the
+ability to add
+and remove
+tasks
+through
+button click.
+Test the
+ability to add
+and remove
+reminders
+through
+button click.
+
+Button
+click.
+
+Add task /
+reminder to
+.txt file.
+Test shop
+purchase
+
+“Spelling,
+Maths”
+
+4.1
+
+Test button
+appears in
+customisation
+
+4.2
+
+Test radio
+buttons for
+character
+customisation
+
+5.1
+
+Test
+username
+input on
+home page
+
+Input
+submitted,
+page
+change.
+“Spelling”
+
+Page
+submitted.
+
+Button
+click.
+
+Icons are
+added.
+
+“[Spelling]”
+
+“Spelling”
+
+Stripped [].
+
+“Add task”
+and
+“Remove
+task”
+appear
+respectively.
+“Add
+reminder”
+and
+“Remove
+reminder”
+appear
+respectively.
+Spelling,
+Maths
+
+Both tasks
+appear, but
+they both
+can appear
+at the same
+time.
+Both
+reminders
+appear.
+
+Button
+click.
+
+Made sure
+both buttons
+can’t appear
+simultaneously.
+
+Button
+click.
+
+None.
+
+Spelling ,
+maths
+
+“Spelling,
+Maths”.
+
+None
+
+50 credits Credits are
+subtracted subtracted
+from 150
+(100
+credits),
+clothing are
+added to
+wardrobe.
+Button
+Background
+click.
+fades, only
+shows
+contents
+from
+button.
+Clothing
+Radio
+added to
+button
+character.txt,
+click
+
+Credits are
+subtracted,
+clothing are
+added to
+wardrobe.
+
+“Spelling”
+
+Button
+click.
+
+Button
+click.
+
+“John
+Doe”
+
+displays
+clothing.
+Username is
+eligible, user
+can progress
+
+None
+
+Background
+fades, only
+shows
+contents
+from
+button.
+
+Button
+click.
+
+None
+
+Clothing
+added to
+character.txt,
+displays
+clothing.
+Username is
+eligible, user
+progresses
+
+Radio
+button
+click
+
+None
+
+“John
+Doe”
+
+Changes made
+to ensure that
+the name
+cannot have
+any spaces or
+cannot be
+empty.
+
+30
+
+5.2
+
+Test
+password
+input on
+home page
+
+“2023”
+
+Password is
+eligible, user
+can progress
+
+Password is
+eligible, user
+progresses
+
+“2023”
+
+Ensured that
+user can only
+enter a four
+digit password.
+
+System and User documentation
+Comments are scattered throughout each file, detailing the purpose of each variable. These
+comments were placed to help developers understand the process behind each function and the
+purpose of different variables.
+A help button was implemented on the user page if the user is unsure of how to use the program.
+This would direct the user to the help page, which showcases a straightforward guide on how the
+app works. Another help button was implemented on the parents' page, which shows a more
+detailed explanation of how the app works alongside how they can use the app to their full
+potential.
+
+Installation Guide
+To install the program via Python, the user needs to ensure they have access to all the key files,
+which include:
+x
+
+x
+
+x
+
+All python files, empty text files and json files. These are:
+o Main.py parents.py, quiz.py, settings.py, shop.py, character.txt, credits.txt,
+preferences.txt, questions.txt, results.txt, tasks.txt, wardrobe.txt and bot.json.
+All images, which include:
+o All backgrounds (Background…[].png).
+o All icons (Icon_[].png).
+o Help Page (Help Page_[].png).
+o All character styles (_Female[].png or _Male[].png) + clothing options.
+All audio files, for both Male and Female.
+
+The user would also be required to install all modules, which include:
+x
+x
+x
+x
+x
+x
+x
+x
+x
+x
+
+PyQt5
+Duckduckgo_search
+Sys
+Json
+Re
+Time
+Os
+Python_Weather
+Asyncio
+Playsound
+
+The user must have a Python interpreter to run the program.
+If the user wishes to not have to manually install the program, they are given the option to run the
+.exe file, which may only run on specific devices due to the security protocols on certain computers.
+
+31
+
+User Manual
+To use the app, simply open the app titled WorkBuddy.exe; which would run without the necessity
+of having Python installed, running off your terminal. From there, the app will function as described
+below:
+
+Login Page: the parent will create an account to
+progress. The password presented will be used
+for the parent to access other parentorientated pages such as the settings.
+
+Home Page: the user can ask the avatar for
+assistance with homework tasks or ask broad
+questions by typing into the textbox below. The
+user will respond through audio and text on the
+screen.
+The user can access the tasks bar, the help
+page, and the shop as well. The avatar and the
+background are customisable, as later
+showcased.
+The parents can access the settings page and
+the parents page, which require the passcode
+they entered earlier when creating the account.
+
+Settings: here the parents can change the
+privacy settings on whether they allow their
+child to access the answers online. Safe search
+
+Parents Page: here the parents can add
+homework tasks for the child to complete, so
+they can earn 30 credits for each task.
+
+32
+
+is permanently enabled, meaning that users
+cannot search for explicit content.
+The parents also have the option to change
+their password.
+
+The parents also have the option of adding a
+quiz, and viewing the results as later
+demonstrated.
+
+Help Page: a user guide to assist the user with
+navigating the application.
+
+Tasks Page: if the user is to click on the tasks on
+the home page, they will be directed here. If
+they type in a number that corresponds with
+the position of the task in a list, they will earn
+30 credits.
+
+Shop: here the user can purchase clothing
+items for a set price. The item will be
+
+Customisation: here the user can customise
+their onscreen avatar, changing all aspects of
+33
+
+automatically added to their wardrobe. Items
+are non-refundable and cannot be purchased
+through real money or other methods, only
+through the virtual currency system in the app.
+A reminder that credits can only be earned
+through completing homework tasks and
+quizes.
+
+their character from gender, to skin tone to
+clothing and the background as well.
+
+As the user clicks on a button, a set of clothing
+options will be available for the user to choose
+from. If the user doesn’t have that item, no
+changes will be made when they click on the
+item.
+
+The user has customised their character and
+the background.
+
+Another example of the user changing their
+avatar and the background.
+
+Quiz: by asking the avatar to complete a quiz,
+the user will be redirected to a new page where
+34
+
+they have a set number of questions to
+complete. Each question correct will give them
+a small number of credits. All results are
+accessible by the parents through the parent’s
+page, where they can view their child’s
+progress.
+
+A video walkthrough is provided alongside the submission of this documentation, which shows all
+the app functions alongside the voice commands.
+
+Reference Manual
+The app does not use any keyboard commands, relying solely from on-screen buttons and textboxes
+to access functions. All functions have been detailed below in alphabetical order:
+Function
+Ask the avatar a question via the on-screen
+command box.
+Change settings via on-screen buttons on the
+parent’s page.
+
+Create account through on-screen text boxes
+and buttons.
+Customise user via the customisation page
+using on-screen buttons.
+Earn virtual credits through completing tasks or
+questions.
+Enter password to access parent-orientated
+pages via text-box.
+Purchase clothing via the shop page using onscreen buttons.
+Set tasks / questions for the user via on-screen
+commands on the parent’s page.
+
+Purpose
+The user can interact with the artificial
+intelligence and can expect a response to assist
+them.
+The parent can change specific settings that will
+affect how the app operates such as the user’s
+ability to access information online via the
+artificial intelligence.
+To identify the user; the parent will use the
+password to access sensitive information on
+the app.
+The user can change the clothing options of the
+on-screen avatar.
+By completing tasks or questions, the user can
+earn credits to spend in the shop.
+The parent will have to use the password they
+entered on the account creation page to access
+sensitive information.
+The user can purchase clothes that they can
+then change via the customisation page.
+The parent can set tasks and questions that the
+user can complete on the home page.
+
+Evidence of online help
+To assist the user, a help menu was implemented on the home page. This is a step-by-step guide
+that helps the user progress through the program, detailing what each page does and the functions
+available. All images are annotated and provide a small sample of text so the user can easily
+understand it. The help page is marked by the symbol with a “?”.
+35
+
+Evidence of regular communication with stakeholders
+The dates on which I communicated with my stakeholders are recorded in the logbook.
+
+Evaluation
+Testing of user requirements
+At the beginning of the documentation, these requirements were listed, which had to be completed
+in order for the program to be successful:
+x
+x
+
+The user can choose the name of their avatar.
+The user must be able to customise the avatar and purchase new cosmetics.
+
+x
+
+The program must listen to the user’s input and respond appropriately.
+o The user must type their response.
+o The program must respond through text format, due to limitations in hardware.
+The program must be able to conduct basic responses to user questions or functions set by a
+parent. These include but are not limited to:
+o Tell the user the time.
+o Record any upcoming events and remind the user.
+o Create, edit, or delete a list.
+o Search the web for information and respond appropriately.
+The program must record responses to display on a visual level, so users can recall
+information.
+The program must display important tips that can assist the user.
+The program must remind the user on a daily basis to complete a set number of questions to
+record learning growth.
+All user information that is recorded must be encrypted and only readable by the program.
+The program must be accessible to those who don’t have access to Python. As such, a
+module called PyInstaller will be used to bundle the application into a single package.
+o Using this module will allow the user to run the program from the terminal without
+needing Python installers.
+The avatar can say their responses aloud to the user.
+
+x
+
+x
+x
+x
+x
+x
+
+x
+
+Feedback
+The feedback I received throughout the creation of the program was relatively positive. I ensured to
+meet on a regular basis with the stakeholders of the program to ensure that it’s being designed to
+meet the target audience’s desires.
+I had my little brother use the program when completing two weeks’ worth of homework. He gets
+easily distracted, but using the program encouraged him to stay focused on his work, keeping track
+of the tasks to be completed while using the program to assist with any further knowledge required.
+He liked having to work for virtual currency, which allowed him to customise his character, although
+he wished that there were more cosmetics that can be unlocked. Using the program, he was able to
+perform at a faster rate his homework, while still encouraging him to learn further by doing extra
+tasks or reading more.
+
+36
+
+Evaluation of ethical and social considerations
+The simplicity of WorkBuddy was well received, with stakeholders saying they found the program
+easy to navigate. This was achieved through the use of various icons and minimal text.
+A key concern was with the security and privacy of the user while developing the software. I ensured
+that when users search the internet, they are only provided with safe and appropriate responses,
+with the program refusing to give an answer to any offensive content. All parent pages are only
+accessible with a pin they created, as such the child cannot change the content or age restrictions of
+the software. The login details are maintained on a text file, which is very insufficient; albeit this was
+due to time constraints and was merely done to only showcase the potential of the software.
+WorkBuddy was made to be very inclusive to anyone who uses it. Various skin tones and hair styles
+are selectable for the avatar from the beginning. The user has the option of changing the avatar’s
+name and gender as well. However, many clothing options and hair colours were removed from the
+WorkBuddy, considering the time constraints, with emphasis on showcasing the minimum to
+manifest the potential of the software.
+The interface was kept to a suitable style, consisting of a soft colour palette for kids to view easily.
+All icons are displayed with symbols and limited text. The user also has the option of changing the
+background of the home page. The overall cartoon aesthetic of WorkBuddy was well-received by the
+stakeholders. The only downside was the limited animations for clicking on each button or
+transitioning between pages.
+
+Appendix
+Project logbook
+Summer Holidays 2023 – brainstormed ideas for major work. Further developed skills in Python and
+learned JavaScript to broaden my range of ideas.
+2/2/23 – researched different APIs and tested a few to finalise ideas.
+3/2/23 – began project documentation.
+4/2/23 – 8/2/23 – continued work on documentation.
+11/2/23 – 13/2/23 – conducted survey and initialised results. Identified target market to help assist
+with documentation.
+13/2/23 – 15/2/23 – finished the first section of the documentation.
+15/2/23 – created a prototype of a ‘chatbot’. Early prototype allowed for voice commands.
+16/2/23 – tested different commands in prototype – check the time, add to the list.
+17/2/23 Started working with PyQt5 and learned to make a basic GUI.
+22/2/23 Continued working on the prototype.
+23/2/23 Further prototype work, focusing on implementing other pages.
+26/2/23 Started storyboard.
+27/2/23 Completed storyboard.
+37
+
+2/3/23 Further worked on prototype to diminish any errors or bugs.
+7/3/23 Worked on program to answer questions.
+9/3/23 Worked on shop in program.
+10/3/23 Finished working on shop and equipping clothes.
+11/3/23 Started work on parent’s page. Asked parents what they expect in an app that could
+monitor their child’s performance.
+15/3/23 Continued work on setting questions.
+16/3/23 Finalised Understanding User Requirements
+12/4/23 – 21/4/23 - Designed all cosmetics and characters. Engaged with target audience regarding
+the overall cartoon style of characters, ensuring they’re friendly-looking to their appeal.
+22/4/23 – All icons are transferred and tested on the program.
+25/4/23 – 27/4/23 – All icons and images are redone with higher quality and transferred over.
+1/5/23 – Conducted feedback from audience.
+3/5/23 – Translated main.py into pseudocode for documentation.
+5/5/23 – Further work on documentation.
+6/5/23 – Showcased design to target audience, they liked the variety of colours and the cartoon
+style.
+8/5/23 – 10/5/23 – Focused on improving the character customisation.
+14/5/23 – Added weather API. User can ask the chatbot for the weather.
+16/5/23 – Improved customisation interface.
+17/5/23 – Continued working on interface.
+20/5/23 – 25/5/23 Completed customisation page.
+27/5/23 – Target audience trialled customisation, was very satisfied with it.
+30/5/23 – The quiz page is added and fixed. The user is now transferred to a different page, rather
+than the avatar reading each question.
+2/6/23 – Parents can now view results from the quiz. User gains credits for each correct answer.
+5/6/23 – Target audience trialled quiz, found it easy to use.
+7/6/23 – Help button is designed, then added.
+8/6/23 – Further work on help button.
+10/6/23 – More backgrounds are designed and added.
+13/6/23 – Login page is created and tested.
+14/6/23 – User can now change backgrounds via the customisation page.
+
+38
+
+15/6/23 – Avatar can now read back response to the user.
+22/6/23 – Help button functionality fully works.
+2/7/23 – Recorded a preview on how the app works.
+4/7/23 – Small bugs were fixed throughout the program.
+19/7/23 – Showcased preview of app to peers and family members. The overall execution of the app
+was well-received, with the visuals and functions being a key successor. No problems or negatives
+were discussed.
+20/7/23 – Documentation completed.
+21/7/23 – Major work completed and submitted.
+
+Surveys/interviews
+Results from the survey as mentioned in Defining the Problem:
+
+39
+
+Full code listing
+40
+
+Refer to the attached document in the submission.
+
+References and resources
+The following below shows the sketches used for the characters. A few hairstyles, alongside different
+accessories and clothing styles were scrapped due to time constraints.
+
+41
+
+These sketches were then reconstructed in Adobe Illustrator. Below shows the design process, from
+outlining the characters, to colouring and then adding shadows.
+
+42
+
+43
+
+From the two characters, different variants were made with different skin tones. Then the rest of
+the clothes were created. A total of 27 hair styles were made, 16 hats (12 of which were
+scrapped), and 17 different clothing styles, alongside 4 skin tones for each character.
+
+Below are all the selectable backgrounds for the user to choose from, alongside some of the
+backgrounds seen on various screens.
+
+Day – the default background on the
+homepage.
+
+Night – a selectable background for the
+homepage.
+
+44
+
+Background 2 – used for the parent’s page, the
+quiz page and the tasks page.
+
+Background 3 – used for the shop and
+customisation page.
+
+Settings – used for the settings page and the
+login page.
+
+Fields - a selectable background for the
+homepage.
+
+45
+
+Earth - a selectable background for the
+homepage.
+
+Tropical - a selectable background for the
+homepage.
+
+46
+
+

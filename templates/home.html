@@ -5,10 +5,15 @@
 </head>
 <body>
     <h1>Merit System</h1>
+    {% if logged_in %}
+        <p>Welcome, {{ username }}! <a href="/logout">Logout</a></p>
+        <a href="/account"><button>Account</button></a>
+    {% else %}
+        <a href="/login"><button>Login</button></a>
+    {% endif %}
     <div>
         <a href="/award-merit"><button>Award Merit</button></a>
         <a href="/award-demerit"><button>Award Demerit</button></a>
-        <a href="/manage-students"><button>Manage Students</button></a>
     </div>
 </body>
 </html> 

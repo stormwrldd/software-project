@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account</title>
+</head>
+<body>
+    <h1>Account</h1>
+    <p>Username: {{ username }}</p>
+    <p>Role: {{ role }}</p>
+    {% if is_admin %}
+        <a href="/admin/create-user"><button>Create User</button></a>
+        <a href="/admin/manage-terms"><button>Manage Terms</button></a>
+    {% endif %}
+    {% if role == 'Mentor' or role == 'Housemaster' %}
+        <a href="/manage-students"><button>Manage Students</button></a>
+    {% endif %}
+    
+    <h2>Merit History</h2>
+    {% if merits %}
+        <table border="1">
+            <tr>
+                <th>Student</th>
+                <th>Grade</th>
+                <th>House</th>
+                <th>Reason</th>
+                <th>Date</th>
+            </tr>
+            {% for merit in merits %}
+            <tr>
+                <td>{{ merit.StudentName }}</td>
+                <td>{{ merit.Grade }}</td>
+                <td>{{ merit.House }}</td>
+                <td>{{ merit.Reason }}</td>
+                <td>{{ merit.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No merits awarded yet.</p>
+    {% endif %}
+    
+    <h2>Demerit History</h2>
+    {% if demerits %}
+        <table border="1">
+            <tr>
+                <th>Student</th>
+                <th>Grade</th>
+                <th>House</th>
+                <th>Reason</th>
+                <th>Date</th>
+            </tr>
+            {% for demerit in demerits %}
+            <tr>
+                <td>{{ demerit.StudentName }}</td>
+                <td>{{ demerit.Grade }}</td>
+                <td>{{ demerit.House }}</td>
+                <td>{{ demerit.Reason }}</td>
+                <td>{{ demerit.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No demerits awarded yet.</p>
+    {% endif %}
+    
+    <a href="/">Back to Home</a>
+</body>
+</html> 

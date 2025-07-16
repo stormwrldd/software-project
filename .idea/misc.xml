@@ -3,9 +3,6 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12 (database project)" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="adf6c42f-fe90-48ab-adcf-819301ee9035" />
-  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
