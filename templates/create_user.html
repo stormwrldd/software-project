@@ -2,41 +2,42 @@
 <html>
 <head>
     <title>Create User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% include 'navbar.html' %}
     <main>
-        <div class="card">
+        <div class="card" style="max-width: 500px; margin: 2rem auto;">
             <div class="card-back-btn">
                 <a href="/" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
             </div>
             <h1>Create User (Admin Only)</h1>
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
-                <ul>
                 {% for category, message in messages %}
-                  <li style="color: {% if category == 'danger' %}red{% elif category == 'success' %}green{% else %}black{% endif %};">{{ message }}</li>
+                  <div class="alert alert-{{ category }}">{{ message }}</div>
                 {% endfor %}
-                </ul>
               {% endif %}
             {% endwith %}
             <form method="post">
-                <label>Username:</label><input type="text" name="username" required><br>
-                <label>Password:</label><input type="password" name="password" required><br>
+                <label>Username:</label>
+                <input type="text" name="username" required value="{{ request.form.username }}">
+                <label>Password:</label>
+                <input type="password" name="password" required>
                 <label>Role:</label>
                 <select name="role" id="role-select" required onchange="showHouseSelect()">
                     <option value="admin">Admin</option>
                     <option value="Housemaster">Housemaster</option>
                     <option value="Mentor">Mentor</option>
                     <option value="Teacher">Teacher</option>
-                </select><br>
+                </select>
                 <div id="house-div" style="display:none;">
                     <label>House:</label>
                     <select name="house">
                         {% for house in houses %}
                             <option value="{{ house }}"><span class="house-{{ house|lower }}">{{ house }}</span></option>
                         {% endfor %}
-                    </select><br>
+                    </select>
                 </div>
                 <div id="year-group-div" style="display:none;">
                     <label>Year Group:</label>
@@ -47,9 +48,9 @@
                         <option value="10">Year 10</option>
                         <option value="11">Year 11</option>
                         <option value="12">Year 12</option>
-                    </select><br>
+                    </select>
                 </div>
-                <input type="submit" value="Create User">
+                <button type="submit" class="btn btn-accent">Create User</button>
             </form>
             <script>
             function showHouseSelect() {
@@ -67,7 +68,6 @@
                     yearGroupDiv.style.display = 'none';
                 }
             }
-            // Run on page load in case of browser autofill
             window.onload = showHouseSelect;
             </script>
         </div>

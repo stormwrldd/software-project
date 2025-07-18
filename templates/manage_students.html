@@ -12,13 +12,7 @@
                 <a href="/account" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
             </div>
             <h1>Manage Students - {{ role }}</h1>
-            <h2>
-            {% if filter_type and 'House:' in filter_type and filter_value %}
-                House: <span class="house-{{ filter_value|lower }}">{{ filter_value }}</span>
-            {% else %}
-                {{ filter_type }}
-            {% endif %}
-            </h2>
+            <h2>{{ filter_type }}</h2>
             <h3>{{ filter_label }}</h3>
             {% if show_current_date %}
                 <div class="text-center text-muted mb-2">
