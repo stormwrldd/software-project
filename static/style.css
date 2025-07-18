@@ -461,3 +461,89 @@ textarea {
 .student-pill {
   border-radius: 999px;
 } 
+
+.house-chelmsford {
+  color: #222;
+  background: #fff;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+  border: 1px solid #ddd;
+}
+.house-cutler {
+  color: #fff;
+  background: #222222;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-davidson {
+  color: #fff;
+  background: #1CA9E5;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-harvey {
+  color: #fff;
+  background: #8BC34A;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-hewan {
+  color: #fff;
+  background: #F8BBD0;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-hone {
+  color: #fff;
+  background: #B39DDB;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-northcott {
+  color: #fff;
+  background: #983454;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-perkins {
+  color: #222;
+  background: #B0BEC5;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-rawson {
+  color: #fff;
+  background: #FF8A80;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-street {
+  color: #fff;
+  background: #43A047;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-strickland {
+  color: #fff;
+  background: #1976D2;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-thomas {
+  color: #222;
+  background: #4DD0E1;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-wakehurst {
+  color: #222;
+  background: #FFD600;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+}
+.house-woodward {
+  color: #fff;
+  background: #FFB300;
+  padding: 0.08em 0.5em;
+  border-radius: 0.5em;
+} 

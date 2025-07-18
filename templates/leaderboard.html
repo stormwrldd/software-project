@@ -83,7 +83,7 @@
         {% for row in leaderboard %}
         <tr>
             {% if sort_by == 'house' %}
-                <td>{{ row.house }}</td>
+                <td><span class="house-{{ row.house|lower }}">{{ row.house }}</span></td>
             {% else %}
                 <td>{{ row.year }}</td>
             {% endif %}

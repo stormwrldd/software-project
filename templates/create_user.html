@@ -34,7 +34,7 @@
                     <label>House:</label>
                     <select name="house">
                         {% for house in houses %}
-                            <option value="{{ house }}">{{ house }}</option>
+                            <option value="{{ house }}"><span class="house-{{ house|lower }}">{{ house }}</span></option>
                         {% endfor %}
                     </select><br>
                 </div>

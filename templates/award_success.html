@@ -51,7 +51,7 @@
                 <div class="success-details">
                     <strong>Student:</strong> <span>{{ name }}</span>
                     <strong>Year:</strong> <span>{{ year }}</span>
-                    <strong>House:</strong> <span>{{ house }}</span>
+                    <strong>House:</strong> <span class="house-{{ house|lower }}">{{ house }}</span>
                     <strong>Reason:</strong> <span>{{ reason }}</span>
                 </div>
                 <a href="/" class="btn btn-accent mt-2">Back to Home</a>
