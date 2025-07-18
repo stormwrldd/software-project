@@ -2,163 +2,131 @@
 <html>
 <head>
     <title>Manage Students</title>
-    <style>
-        .filter-buttons {
-            margin: 20px 0;
-            text-align: center;
-        }
-        .filter-buttons a {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 5px;
-            background-color: #f0f0f0;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-        }
-        .filter-buttons a.active {
-            background-color: #007bff;
-            color: white;
-        }
-        .filter-buttons a:hover {
-            background-color: #0056b3;
-            color: white;
-        }
-        .student-section {
-            border: 1px solid #ccc;
-            margin: 10px 0;
-            padding: 10px;
-        }
-        .student-header {
-            cursor: pointer;
-            background-color: #f0f0f0;
-            padding: 5px;
-            font-weight: bold;
-        }
-        .student-details {
-            display: none;
-            padding: 10px;
-        }
-        .merits-section, .demerits-section {
-            margin: 10px 0;
-        }
-        .merit-item, .demerit-item {
-            background-color: #f9f9f9;
-            padding: 5px;
-            margin: 2px 0;
-            border-left: 3px solid;
-        }
-        .merit-item {
-            border-left-color: green;
-        }
-        .demerit-item {
-            border-left-color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Manage Students - {{ role }}</h1>
-    <h2>{{ filter_type }}</h2>
-    <h3>{{ filter_label }}</h3>
-    {% if show_current_date %}
-        <div style="text-align:center; color: #888; margin-bottom: 10px;">
-            <strong>Today:</strong> {{ now().strftime('%Y-%m-%d') }}
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card">
+            <div class="card-back-btn">
+                <a href="/account" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
+            </div>
+            <h1>Manage Students - {{ role }}</h1>
+            <h2>{{ filter_type }}</h2>
+            <h3>{{ filter_label }}</h3>
+            {% if show_current_date %}
+                <div class="text-center text-muted mb-2">
+                    <strong>Today:</strong> {{ now().strftime('%Y-%m-%d') }}
+                </div>
+                {% if available_terms %}
+                    <div class="text-center text-muted mb-2">
+                        <strong>Available Terms:</strong>
+                        <ul style="display:inline-block; text-align:left;">
+                        {% for term in available_terms %}
+                            <li>Year {{ term.year }}, Term {{ term.term_number }}: {{ term.start_date }} to {{ term.end_date }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if house_merit_count is not none %}
+                <div class="mb-2" style="font-size: 1.2em; font-weight: bold;">
+                    House Merit Count: {{ house_merit_count }} (Merits - Demerits)
+                </div>
+            {% endif %}
+            {% if yeargroup_house_counts %}
+                <div class="mb-2" style="font-size: 1.2em; font-weight: bold;">
+                    House Merit Counts (Merits - Demerits):<br>
+                    <ul>
+                    {% for house, count in yeargroup_house_counts.items() %}
+                        <li>{{ house }}: {{ count }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="flex-center mb-2 filter-buttons">
+                <a href="/manage-students?filter=week" class="btn btn-secondary {{ 'active' if time_filter == 'week' else '' }}">Week</a>
+                <a href="/manage-students?filter=term" class="btn btn-secondary {{ 'active' if time_filter == 'term' else '' }}">Term</a>
+                <a href="/manage-students?filter=year" class="btn btn-secondary {{ 'active' if time_filter == 'year' else '' }}">Year</a>
+            </div>
         </div>
-        {% if available_terms %}
-            <div style="text-align:center; color: #888; margin-bottom: 10px;">
-                <strong>Available Terms:</strong>
-                <ul style="display:inline-block; text-align:left;">
-                {% for term in available_terms %}
-                    <li>Year {{ term.year }}, Term {{ term.term_number }}: {{ term.start_date }} to {{ term.end_date }}</li>
-                {% endfor %}
-                </ul>
+        {% if students %}
+            {% for student in students %}
+            <div class="student-section card" id="section-{{ student.name }}">
+                <div class="student-header flex-between compact-header">
+                    <div class="flex align-center">
+                        <button type="button" class="arrow-btn" aria-label="Expand/Collapse" onclick="toggleDetails('{{ student.name|escape }}', this)">
+                            <span class="arrow">&#9654;</span>
+                        </button>
+                        <span {% if student.action_required %}class="action-required"{% endif %}>
+                            {{ student.name }}
+                        </span>
+                    </div>
+                    <div class="student-meta">
+                        <div class="student-meta-row">
+                            <span class="student-pill grade">Grade: {{ student.grade }}</span>
+                        </div>
+                        <div class="student-meta-row">
+                            <span class="student-pill merits">Merits this {{ time_filter|capitalize }}: {{ student.merits|length }}</span>
+                        </div>
+                        <div class="student-meta-row">
+                            <span class="student-pill demerits">Demerits this {{ time_filter|capitalize }}: {{ student.demerits|length }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="details-{{ student.name }}" class="student-details">
+                    {% if student.action_required %}
+                        <div class="action-required mb-2">{{ student.action_message }}</div>
+                    {% endif %}
+                    <div class="merits-section">
+                        <h3>Merits ({{ student.merits|length }})</h3>
+                        {% if student.merits %}
+                            {% for merit in student.merits %}
+                            <div class="merit-item">
+                                <strong>Reason:</strong> {{ merit['Reason'] }}<br>
+                                <strong>Awarded by:</strong> {{ merit['awarded_by'] }}<br>
+                                <strong>Date:</strong> {{ merit['date'] }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">No merits</p>
+                        {% endif %}
+                    </div>
+                    <div class="demerits-section">
+                        <h3>Demerits ({{ student.demerits|length }})</h3>
+                        {% if student.demerits %}
+                            {% for demerit in student.demerits %}
+                            <div class="demerit-item">
+                                <strong>Reason:</strong> {{ demerit['Reason'] }}<br>
+                                <strong>Awarded by:</strong> {{ demerit['awarded_by'] }}<br>
+                                <strong>Date:</strong> {{ demerit['date'] }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">No demerits</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card text-center">
+                <p class="text-muted">No students found for your {{ filter_type.lower() }}.</p>
             </div>
         {% endif %}
-    {% endif %}
-    {% if house_merit_count is not none %}
-        <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px;">
-            House Merit Count: {{ house_merit_count }} (Merits - Demerits)
-        </div>
-    {% endif %}
-    {% if yeargroup_house_counts %}
-        <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px;">
-            House Merit Counts (Merits - Demerits):<br>
-            <ul>
-            {% for house, count in yeargroup_house_counts.items() %}
-                <li>{{ house }}: {{ count }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-    
-    <div class="filter-buttons">
-        <a href="/manage-students?filter=week" class="{{ 'active' if time_filter == 'week' else '' }}">This Week</a>
-        <a href="/manage-students?filter=term" class="{{ 'active' if time_filter == 'term' else '' }}">This Term</a>
-        <a href="/manage-students?filter=year" class="{{ 'active' if time_filter == 'year' else '' }}">This Year</a>
-    </div>
-    
-    {% if students %}
-        {% for student in students %}
-        <div class="student-section">
-            <div class="student-header" onclick="toggleDetails('{{ student.name }}')">
-                <span {% if student.action_required %}style="color: red; font-weight: bold;"{% endif %}>
-                    {{ student.name }}
-                    {% if student.action_required %} (Action Required){% endif %}
-                </span>
-                - Grade {{ student.grade }} - {{ student.house }}
-                ({{ student.merits|length }} merits, {{ student.demerits|length }} demerits)
-            </div>
-            {% if student.action_required %}
-                <div style="color: red; font-weight: bold; margin: 5px 0;">{{ student.action_message }}</div>
-            {% endif %}
-            <div id="details-{{ student.name }}" class="student-details">
-                <div class="merits-section">
-                    <h3>Merits ({{ student.merits|length }})</h3>
-                    {% if student.merits %}
-                        {% for merit in student.merits %}
-                        <div class="merit-item">
-                            <strong>Reason:</strong> {{ merit['Reason'] }}<br>
-                            <strong>Awarded by:</strong> {{ merit['awarded_by'] }}<br>
-                            <strong>Date:</strong> {{ merit['date'] }}
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>No merits</p>
-                    {% endif %}
-                </div>
-                
-                <div class="demerits-section">
-                    <h3>Demerits ({{ student.demerits|length }})</h3>
-                    {% if student.demerits %}
-                        {% for demerit in student.demerits %}
-                        <div class="demerit-item">
-                            <strong>Reason:</strong> {{ demerit['Reason'] }}<br>
-                            <strong>Awarded by:</strong> {{ demerit['awarded_by'] }}<br>
-                            <strong>Date:</strong> {{ demerit['date'] }}
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>No demerits</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>No students found for your {{ filter_type.lower() }}.</p>
-    {% endif %}
-    
+        <!-- No bottom back button -->
+    </main>
     <script>
-    function toggleDetails(studentName) {
-        var details = document.getElementById('details-' + studentName);
-        if (details.style.display === 'none' || details.style.display === '') {
-            details.style.display = 'block';
+    function toggleDetails(studentName, btn) {
+        var section = document.getElementById('section-' + studentName);
+        if (section.classList.contains('open')) {
+            section.classList.remove('open');
+            if (btn) btn.querySelector('.arrow').style.transform = '';
         } else {
-            details.style.display = 'none';
+            section.classList.add('open');
+            if (btn) btn.querySelector('.arrow').style.transform = 'rotate(90deg)';
         }
     }
     </script>
-    
-    <a href="/account">Back to Account</a>
 </body>
 </html> 

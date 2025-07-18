@@ -448,7 +448,7 @@ def submit():
     awarded_by = session.get('username')
     date = datetime.now().strftime('%Y-%m-%d')
     award_merit(name.upper(), year, house, reason, awarded_by)
-    return f"Merit awarded to {name} from Year {year}, House {house}. Reason: {reason}"
+    return render_template('award_success.html', award_type='Merit', color='success', name=name, year=year, house=house, reason=reason)
 
 @app.route('/submit-demerit', methods=['POST'])
 @login_required
@@ -460,7 +460,7 @@ def submit_demerit():
     awarded_by = session.get('username')
     date = datetime.now().strftime('%Y-%m-%d')
     award_demerit(name.upper(), year, house, reason, awarded_by)
-    return f"Demerit awarded to {name} from Year {year}, House {house}. Reason: {reason}"
+    return render_template('award_success.html', award_type='Demerit', color='danger', name=name, year=year, house=house, reason=reason)
 
 def get_leaderboard_by_house(start_date, end_date):
     connection = sqlite3.connect('awards.db')

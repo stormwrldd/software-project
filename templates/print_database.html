@@ -11,6 +11,12 @@ table, th, td {
 </style>
 </head>
 <body>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card">
+            <div class="card-back-btn">
+                <a href="/" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
+            </div>
 
 {% for table in database %}
 <div>
@@ -33,6 +39,6 @@ table, th, td {
 
 </div>
 {% endfor %}
-
+    </main>
 </body>
 </html>

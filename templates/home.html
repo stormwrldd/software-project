@@ -2,19 +2,28 @@
 <html>
 <head>
     <title>Merit System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Merit System</h1>
-    {% if logged_in %}
-        <p>Welcome, {{ username }}! <a href="/logout">Logout</a></p>
-        <a href="/account"><button>Account</button></a>
-    {% else %}
-        <a href="/login"><button>Login</button></a>
-    {% endif %}
-    <div>
-        <a href="/award-merit"><button>Award Merit</button></a>
-        <a href="/award-demerit"><button>Award Demerit</button></a>
-        <a href="/leaderboard"><button>Leaderboard</button></a>
-    </div>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card text-center">
+            <h1>Merit System</h1>
+            {% if logged_in %}
+                <p>Welcome, <strong>{{ username }}</strong>!</p>
+                <div class="flex-center mt-2">
+                    <a href="/account" class="btn btn-accent">Account</a>
+                    <a href="/logout" class="btn btn-secondary">Logout</a>
+                </div>
+            {% else %}
+                <a href="/login" class="btn btn-primary">Login</a>
+            {% endif %}
+        </div>
+        <div class="flex-center mt-2">
+            <a href="/award-merit" class="btn btn-success">Award Merit</a>
+            <a href="/award-demerit" class="btn btn-danger">Award Demerit</a>
+            <a href="/leaderboard" class="btn btn-accent">Leaderboard</a>
+        </div>
+    </main>
 </body>
 </html>

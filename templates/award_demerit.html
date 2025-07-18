@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Award a Demerit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Award a Demerit</h1>
-    <form method="POST" action="/submit-demerit">
-        <label for="name">Student Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card" style="max-width: 500px; margin: 2rem auto;">
+            <div class="card-back-btn">
+                <a href="/" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
+            </div>
+            <h1>Award a Demerit</h1>
+            <form method="POST" action="/submit-demerit">
+                <label for="name">Student Name:</label>
+                <input type="text" id="name" name="name" required>
 
-        <label for="year">Year:</label><br>
-        <select id="year" name="year" required>
-            {% for y in range(7, 13) %}
-                <option value="{{ y }}">Year {{ y }}</option>
-            {% endfor %}
-        </select><br><br>
+                <label for="year">Year:</label>
+                <select id="year" name="year" required>
+                    {% for y in range(7, 13) %}
+                        <option value="{{ y }}">Year {{ y }}</option>
+                    {% endfor %}
+                </select>
 
-        <label for="house">House:</label><br>
-        <select id="house" name="house" required>
-            {% for h in houses %}
-                <option value="{{ h }}">{{ h }}</option>
-            {% endfor %}
-        </select><br><br>
+                <label for="house">House:</label>
+                <select id="house" name="house" required>
+                    {% for h in houses %}
+                        <option value="{{ h }}">{{ h }}</option>
+                    {% endfor %}
+                </select>
 
-        <label for="reason">Reason:</label><br>
-        <textarea id="reason" name="reason" rows="4" cols="50" required></textarea><br><br>
+                <label for="reason">Reason:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
 
-        <button type="submit">Submit</button>
-    </form>
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html> 

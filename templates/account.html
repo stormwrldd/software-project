@@ -2,67 +2,78 @@
 <html>
 <head>
     <title>Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Account</h1>
-    <p>Username: {{ username }}</p>
-    <p>Role: {{ role }}</p>
-    {% if is_admin %}
-        <a href="/admin/create-user"><button>Create User</button></a>
-        <a href="/admin/manage-terms"><button>Manage Terms</button></a>
-    {% endif %}
-    {% if role == 'Mentor' or role == 'Housemaster' %}
-        <a href="/manage-students"><button>Manage Students</button></a>
-    {% endif %}
-    
-    <h2>Merit History</h2>
-    {% if merits %}
-        <table border="1">
-            <tr>
-                <th>Student</th>
-                <th>Grade</th>
-                <th>House</th>
-                <th>Reason</th>
-                <th>Date</th>
-            </tr>
-            {% for merit in merits %}
-            <tr>
-                <td>{{ merit.StudentName }}</td>
-                <td>{{ merit.Grade }}</td>
-                <td>{{ merit.House }}</td>
-                <td>{{ merit.Reason }}</td>
-                <td>{{ merit.date }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No merits awarded yet.</p>
-    {% endif %}
-    
-    <h2>Demerit History</h2>
-    {% if demerits %}
-        <table border="1">
-            <tr>
-                <th>Student</th>
-                <th>Grade</th>
-                <th>House</th>
-                <th>Reason</th>
-                <th>Date</th>
-            </tr>
-            {% for demerit in demerits %}
-            <tr>
-                <td>{{ demerit.StudentName }}</td>
-                <td>{{ demerit.Grade }}</td>
-                <td>{{ demerit.House }}</td>
-                <td>{{ demerit.Reason }}</td>
-                <td>{{ demerit.date }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No demerits awarded yet.</p>
-    {% endif %}
-    
-    <a href="/">Back to Home</a>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card">
+            <div class="card-back-btn">
+                <a href="/" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
+            </div>
+            <h1>Account</h1>
+            <p><strong>Username:</strong> {{ username }}</p>
+            <p><strong>Role:</strong> {{ role }}</p>
+            <div class="flex mt-2">
+                {% if is_admin %}
+                    <a href="/admin/create-user" class="btn btn-accent">Create User</a>
+                    <a href="/admin/manage-terms" class="btn btn-accent">Manage Terms</a>
+                {% endif %}
+                {% if role == 'Mentor' or role == 'Housemaster' %}
+                    <a href="/manage-students" class="btn btn-primary">Manage Students</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+            <h2>Merit History</h2>
+            {% if merits %}
+                <table>
+                    <tr>
+                        <th>Student</th>
+                        <th>Grade</th>
+                        <th>House</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for merit in merits %}
+                    <tr>
+                        <td>{{ merit.StudentName }}</td>
+                        <td>{{ merit.Grade }}</td>
+                        <td>{{ merit.House }}</td>
+                        <td>{{ merit.Reason }}</td>
+                        <td>{{ merit.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="text-muted">No merits awarded yet.</p>
+            {% endif %}
+        </div>
+        <div class="card">
+            <h2>Demerit History</h2>
+            {% if demerits %}
+                <table>
+                    <tr>
+                        <th>Student</th>
+                        <th>Grade</th>
+                        <th>House</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for demerit in demerits %}
+                    <tr>
+                        <td>{{ demerit.StudentName }}</td>
+                        <td>{{ demerit.Grade }}</td>
+                        <td>{{ demerit.House }}</td>
+                        <td>{{ demerit.Reason }}</td>
+                        <td>{{ demerit.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="text-muted">No demerits awarded yet.</p>
+            {% endif %}
+        </div>
+    </main>
 </body>
 </html> 
