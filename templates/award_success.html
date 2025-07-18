@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ award_type }} Awarded</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2em auto;
+            font-size: 2.5em;
+            color: #fff;
+            box-shadow: 0 2px 12px #0002;
+        }
+        .success-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7em 1.2em;
+            margin: 1.2em 0 1.5em 0;
+            font-size: 1.08em;
+        }
+        .success-details strong {
+            color: #444;
+            font-weight: 600;
+        }
+        .success-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 1.2em 0 1.2em 0;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card" style="max-width: 430px; margin: 2.5rem auto 2rem auto; padding-top: 2.2em;">
+            <div class="text-center">
+                <div class="success-icon" style="background: {% if color == 'success' %}#43a047{% else %}#e53935{% endif %};">
+                    {% if color == 'success' %}
+                        &#10003;
+                    {% else %}
+                        !
+                    {% endif %}
+                </div>
+                <h1 style="margin-bottom: 0.5em; color: {% if color == 'success' %}#43a047{% else %}#e53935{% endif %};">{{ award_type }} Awarded!</h1>
+                <hr class="success-divider">
+                <div class="success-details">
+                    <strong>Student:</strong> <span>{{ name }}</span>
+                    <strong>Year:</strong> <span>{{ year }}</span>
+                    <strong>House:</strong> <span>{{ house }}</span>
+                    <strong>Reason:</strong> <span>{{ reason }}</span>
+                </div>
+                <a href="/" class="btn btn-accent mt-2">Back to Home</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 
