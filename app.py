@@ -6,6 +6,11 @@ from functools import wraps
 from datetime import datetime, timedelta
 import re
 
+DATE_FMT = '%Y-%m-%d'
+UPPERCASE_RE = re.compile(r'[A-Z]')
+LOWERCASE_RE = re.compile(r'[a-z]')
+SPECIAL_RE = re.compile(r'[^A-Za-z0-9]')
+
 database_name = "merits.db"
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -15,7 +20,6 @@ houses = [
     "NORTHCOTT", "PERKINS", "RAWSON", "STREET", "STRICKLAND",
     "THOMAS", "WAKEHURST", "WOODWARD"
 ]
-
 
 @app.route('/db')
 def home():
@@ -27,18 +31,15 @@ def home():
     for table in tables:
         query = "SELECT name FROM PRAGMA_TABLE_INFO('{}');".format(table[1])
         columns = connection.execute(query).fetchall()
-
         query = "SELECT * FROM {}".format(table[1])
         rows = connection.execute(query).fetchall()
-
         database.append((table[1], columns, rows))
-
     return render_template('print_database.html', database=database)
 
 
 def award_merit(StudentName, grade, house, reason, awarded_by):
     StudentName = StudentName.upper()
-    date = datetime.now().strftime('%Y-%m-%d')
+    date = datetime.now().strftime(DATE_FMT)
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
     new_merit = (StudentName, grade, house, reason, awarded_by, date)
@@ -50,7 +51,7 @@ def award_merit(StudentName, grade, house, reason, awarded_by):
 
 def award_demerit(StudentName, grade, house, reason, awarded_by):
     StudentName = StudentName.upper()
-    date = datetime.now().strftime('%Y-%m-%d')
+    date = datetime.now().strftime(DATE_FMT)
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
     new_demerit = (StudentName, grade, house, reason, awarded_by, date)
@@ -101,11 +102,11 @@ def is_admin():
 def is_valid_password(password):
     if len(password) < 10:
         return False
-    if not re.search(r'[A-Z]', password):
+    if not UPPERCASE_RE.search(password):
         return False
-    if not re.search(r'[a-z]', password):
+    if not LOWERCASE_RE.search(password):
         return False
-    if not re.search(r'[^A-Za-z0-9]', password):
+    if not SPECIAL_RE.search(password):
         return False
     return True
 
@@ -240,7 +241,7 @@ def get_student_demerits(student_name):
 def get_current_term():
     connection = sqlite3.connect('school.db')
     connection.row_factory = sqlite3.Row
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime(DATE_FMT)
     # Try to find current term
     term = connection.execute(
         'SELECT * FROM terms WHERE start_date <= ? AND end_date >= ? ORDER BY year DESC, term_number DESC LIMIT 1',
@@ -261,14 +262,14 @@ def get_week_dates():
     today = datetime.now()
     start_of_week = today - timedelta(days=today.weekday())
     end_of_week = start_of_week + timedelta(days=6)
-    return start_of_week.strftime('%Y-%m-%d'), end_of_week.strftime('%Y-%m-%d')
+    return start_of_week.strftime(DATE_FMT), end_of_week.strftime(DATE_FMT)
 
 
 def get_year_dates():
     today = datetime.now()
     start_of_year = today.replace(month=1, day=1)
     end_of_year = today.replace(month=12, day=31)
-    return start_of_year.strftime('%Y-%m-%d'), end_of_year.strftime('%Y-%m-%d')
+    return start_of_year.strftime(DATE_FMT), end_of_year.strftime(DATE_FMT)
 
 
 def filter_students_by_date(students, start_date, end_date):
@@ -490,7 +491,7 @@ def manage_students():
             available_terms = []
         else:
             start_date, end_date = get_week_dates()
-            today_str = datetime.now().strftime('%Y-%m-%d')
+            today_str = datetime.now().strftime(DATE_FMT)
             available_terms = get_available_terms()
             filter_label2 = f"This Week (No current term set, today: {today_str}, available terms below)"
             show_current_date = True
@@ -521,7 +522,7 @@ def submit():
     house = request.form['house']
     reason = request.form['reason']
     awarded_by = session.get('username')
-    date = datetime.now().strftime('%Y-%m-%d')
+    date = datetime.now().strftime(DATE_FMT)
     award_merit(name.upper(), year, house, reason, awarded_by)
     return render_template('award_success.html', award_type='Merit', color='success', name=name, year=year, house=house,
                            reason=reason)
@@ -535,7 +536,7 @@ def submit_demerit():
     house = request.form['house']
     reason = request.form['reason']
     awarded_by = session.get('username')
-    date = datetime.now().strftime('%Y-%m-%d')
+    date = datetime.now().strftime(DATE_FMT)
     award_demerit(name.upper(), year, house, reason, awarded_by)
     return render_template('award_success.html', award_type='Demerit', color='danger', name=name, year=year,
                            house=house, reason=reason)
@@ -596,7 +597,7 @@ def leaderboard():
             available_terms = []
         else:
             start_date, end_date = get_week_dates()
-            today_str = datetime.now().strftime('%Y-%m-%d')
+            today_str = datetime.now().strftime(DATE_FMT)
             available_terms = get_available_terms()
             filter_label = f"This Week (No current term set, today: {today_str}, available terms below)"
             show_current_date = True
