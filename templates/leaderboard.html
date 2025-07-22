@@ -2,99 +2,66 @@
 <html>
 <head>
     <title>Leaderboard</title>
-    <style>
-        .filter-buttons, .sort-buttons {
-            margin: 20px 0;
-            text-align: center;
-        }
-        .filter-buttons a, .sort-buttons a {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 5px;
-            background-color: #f0f0f0;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-        }
-        .filter-buttons a.active, .sort-buttons a.active {
-            background-color: #007bff;
-            color: white;
-        }
-        .filter-buttons a:hover, .sort-buttons a:hover {
-            background-color: #0056b3;
-            color: white;
-        }
-        table {
-            width: 60%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h1, h2, h3 {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Leaderboard</h1>
-    <div class="sort-buttons">
-        <a href="/leaderboard?sort=house&filter={{ time_filter }}" class="{{ 'active' if sort_by == 'house' else '' }}">By House</a>
-        <a href="/leaderboard?sort=year&filter={{ time_filter }}" class="{{ 'active' if sort_by == 'year' else '' }}">By Year Group</a>
-    </div>
-    <div class="filter-buttons">
-        <a href="/leaderboard?sort={{ sort_by }}&filter=week" class="{{ 'active' if time_filter == 'week' else '' }}">This Week</a>
-        <a href="/leaderboard?sort={{ sort_by }}&filter=term" class="{{ 'active' if time_filter == 'term' else '' }}">This Term</a>
-        <a href="/leaderboard?sort={{ sort_by }}&filter=year" class="{{ 'active' if time_filter == 'year' else '' }}">This Year</a>
-    </div>
-    <h3>{{ filter_label }}</h3>
-    {% if show_current_date %}
-        <div style="text-align:center; color: #888; margin-bottom: 10px;">
-            <strong>Today:</strong> {{ now().strftime('%Y-%m-%d') }}
-        </div>
-        {% if available_terms %}
-            <div style="text-align:center; color: #888; margin-bottom: 10px;">
-                <strong>Available Terms:</strong>
-                <ul style="display:inline-block; text-align:left;">
-                {% for term in available_terms %}
-                    <li>Year {{ term.year }}, Term {{ term.term_number }}: {{ term.start_date }} to {{ term.end_date }}</li>
-                {% endfor %}
-                </ul>
+    {% include 'navbar.html' %}
+    <main>
+        <div class="card">
+            <div class="card-back-btn">
+                <a href="/" class="btn btn-secondary back-arrow" title="Back"><span class="arrow-icon">&#8592;</span></a>
             </div>
-        {% endif %}
-    {% endif %}
-    <table>
-        <tr>
-            {% if sort_by == 'house' %}
-                <th>House</th>
-            {% else %}
-                <th>Year Group</th>
+            <h1 class="text-center">Leaderboard</h1>
+            <div class="sort-buttons flex-center mb-2">
+                <a href="/leaderboard?sort=house&filter={{ time_filter }}" class="btn{% if sort_by == 'house' %} btn-accent{% endif %}">By House</a>
+                <a href="/leaderboard?sort=year&filter={{ time_filter }}" class="btn{% if sort_by == 'year' %} btn-accent{% endif %}">By Year Group</a>
+            </div>
+            <div class="filter-buttons flex-center mb-2">
+                <a href="/leaderboard?sort={{ sort_by }}&filter=week" class="btn{% if time_filter == 'week' %} btn-accent{% endif %}">This Week</a>
+                <a href="/leaderboard?sort={{ sort_by }}&filter=term" class="btn{% if time_filter == 'term' %} btn-accent{% endif %}">This Term</a>
+                <a href="/leaderboard?sort={{ sort_by }}&filter=year" class="btn{% if time_filter == 'year' %} btn-accent{% endif %}">This Year</a>
+            </div>
+            <h3 class="text-center">{{ filter_label }}</h3>
+            {% if show_current_date %}
+                <div class="text-center text-muted mb-2">
+                    <strong>Today:</strong> {{ now().strftime('%Y-%m-%d') }}
+                </div>
+                {% if available_terms %}
+                    <div class="text-center text-muted mb-2">
+                        <strong>Available Terms:</strong>
+                        <ul style="display:inline-block; text-align:left;">
+                        {% for term in available_terms %}
+                            <li>Year {{ term.year }}, Term {{ term.term_number }}: {{ term.start_date }} to {{ term.end_date }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             {% endif %}
-            <th>Merit Count (Merits - Demerits)</th>
-            <th>Merits</th>
-            <th>Demerits</th>
-        </tr>
-        {% for row in leaderboard %}
-        <tr>
-            {% if sort_by == 'house' %}
-                <td><span class="house-{{ row.house|lower }}">{{ row.house }}</span></td>
-            {% else %}
-                <td>{{ row.year }}</td>
-            {% endif %}
-            <td>{{ row.score }}</td>
-            <td>{{ row.merits }}</td>
-            <td>{{ row.demerits }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <div style="text-align:center; margin-top:30px;">
-        <a href="/">Back to Home</a>
-    </div>
+            <table>
+                <tr>
+                    {% if sort_by == 'house' %}
+                        <th>House</th>
+                    {% else %}
+                        <th>Year Group</th>
+                    {% endif %}
+                    <th>Merit Count (Merits - Demerits)</th>
+                    <th>Merits</th>
+                    <th>Demerits</th>
+                </tr>
+                {% for row in leaderboard %}
+                <tr>
+                    {% if sort_by == 'house' %}
+                        <td><span class="house-{{ row.house|lower }}">{{ row.house }}</span></td>
+                    {% else %}
+                        <td>{{ row.year }}</td>
+                    {% endif %}
+                    <td>{{ row.score }}</td>
+                    <td>{{ row.merits }}</td>
+                    <td>{{ row.demerits }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
 </body>
 </html> 
