@@ -207,7 +207,6 @@ def account():
                            demerits=demerits, user_house=user_house)
 
 
-# Protect all other routes except login, logout, and static
 @app.route('/award-merit')
 @login_required
 def award_merit_page():
@@ -242,14 +241,12 @@ def get_current_term():
     connection = sqlite3.connect('school.db')
     connection.row_factory = sqlite3.Row
     today = datetime.now().strftime(DATE_FMT)
-    # Try to find current term
     term = connection.execute(
         'SELECT * FROM terms WHERE start_date <= ? AND end_date >= ? ORDER BY year DESC, term_number DESC LIMIT 1',
         (today, today)).fetchone()
     if term:
         connection.close()
         return term, False
-    # If not found, get the most recent previous term
     term = connection.execute('SELECT * FROM terms WHERE end_date < ? ORDER BY end_date DESC LIMIT 1',
                               (today,)).fetchone()
     connection.close()
@@ -275,7 +272,6 @@ def get_year_dates():
 def filter_students_by_date(students, start_date, end_date):
     filtered_students = {}
     for student_name, student_data in students.items():
-        # Get merits and demerits for this student within date range
         connection = sqlite3.connect('awards.db')
         connection.row_factory = sqlite3.Row
         merits = connection.execute(
@@ -383,14 +379,12 @@ def manage_terms():
             end_date = request.form.get(f'end_date_{term_number}')
             if start_date and end_date:
                 connection = sqlite3.connect('school.db')
-                # Upsert term
                 connection.execute(
                     '''INSERT OR REPLACE INTO terms (year, term_number, start_date, end_date) VALUES (?, ?, ?, ?)''',
                     (selected_year, term_number, start_date, end_date))
                 connection.commit()
                 connection.close()
         flash('Terms updated!', 'success')
-    # Get all terms for the selected year
     connection = sqlite3.connect('school.db')
     connection.row_factory = sqlite3.Row
     terms = {row['term_number']: row for row in
@@ -420,21 +414,18 @@ def get_students_by_filter(role, user_info):
         filter_label = f"Year Group: {filter_value}"
     else:
         return {}, None
-    # Query Merits
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
     merits = connection.execute(
         f'SELECT DISTINCT StudentName, Grade, House FROM Merits WHERE {filter_field} = ? ORDER BY StudentName',
         (filter_value,)).fetchall()
     connection.close()
-    # Query Demerits
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
     demerits = connection.execute(
         f'SELECT DISTINCT StudentName, Grade, House FROM Demerits WHERE {filter_field} = ? ORDER BY StudentName',
         (filter_value,)).fetchall()
     connection.close()
-    # Merge results by (name, house, grade)
     for row in merits:
         key = (row['StudentName'], row['House'], row['Grade'])
         students[key] = {'name': row['StudentName'], 'grade': row['Grade'], 'house': row['House']}

@@ -125,5 +125,4 @@ if __name__ == "__main__":
     setup_terms_table()
     setup_years_table()
     setup_initial_terms()
-    # Uncomment and run once to create the admin user, then comment again for safety
     create_admin_user('admin', 'Cranbrook')
