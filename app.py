@@ -21,6 +21,7 @@ houses = [
     "THOMAS", "WAKEHURST", "WOODWARD"
 ]
 
+# Database viewer route - displays all database tables and their contents
 @app.route('/db')
 def home():
     connection = sqlite3.connect(database_name)
@@ -37,6 +38,7 @@ def home():
     return render_template('print_database.html', database=database)
 
 
+# Award a merit to a student and store it in the database
 def award_merit(StudentName, grade, house, reason, awarded_by):
     StudentName = StudentName.upper()
     date = datetime.now().strftime(DATE_FMT)
@@ -49,6 +51,7 @@ def award_merit(StudentName, grade, house, reason, awarded_by):
     connection.close()
 
 
+# Award a demerit to a student and store it in the database
 def award_demerit(StudentName, grade, house, reason, awarded_by):
     StudentName = StudentName.upper()
     date = datetime.now().strftime(DATE_FMT)
@@ -61,6 +64,7 @@ def award_demerit(StudentName, grade, house, reason, awarded_by):
     connection.close()
 
 
+# Get all merits awarded by a specific user
 def get_merit_history(username):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -70,6 +74,7 @@ def get_merit_history(username):
     return merits
 
 
+# Get all demerits awarded by a specific user
 def get_demerit_history(username):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -79,6 +84,7 @@ def get_demerit_history(username):
     return demerits
 
 
+# Get user information from the database by username
 def get_user_by_username(username):
     connection = sqlite3.connect('users.db')
     user = connection.execute('SELECT id, username, password_hash, role FROM users WHERE username = ?',
@@ -87,18 +93,22 @@ def get_user_by_username(username):
     return user
 
 
+# Check if user is currently logged in
 def is_logged_in():
     return 'user_id' in session
 
 
+# Get the current user's role from session
 def get_role():
     return session.get('role', 'Teacher')
 
 
+# Check if current user is an admin
 def is_admin():
     return get_role() == 'admin'
 
 
+# Validate password complexity requirements
 def is_valid_password(password):
     if len(password) < 10:
         return False
@@ -111,6 +121,7 @@ def is_valid_password(password):
     return True
 
 
+# User login route - handles authentication
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -128,6 +139,7 @@ def login():
     return render_template('login.html')
 
 
+# User logout route - clears session
 @app.route('/logout')
 def logout():
     session.clear()
@@ -135,6 +147,7 @@ def logout():
     return redirect(url_for('login'))
 
 
+# Decorator to require user login for protected routes
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -145,6 +158,7 @@ def login_required(f):
     return decorated_function
 
 
+# Decorator to require admin role for protected routes
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -155,6 +169,7 @@ def admin_required(f):
     return decorated_function
 
 
+# Admin route to create new user accounts
 @app.route('/admin/create-user', methods=['GET', 'POST'])
 @admin_required
 def create_user():
@@ -187,12 +202,14 @@ def create_user():
     return render_template('create_user.html', houses=houses)
 
 
+# Home page route - main dashboard
 @app.route('/')
 @login_required
 def index():
     return render_template('home.html', logged_in=True, is_admin=is_admin(), username=session.get('username'))
 
 
+# User account page - shows personal merit/demerit history
 @app.route('/account')
 @login_required
 def account():
@@ -207,18 +224,21 @@ def account():
                            demerits=demerits, user_house=user_house)
 
 
+# Merit award form page
 @app.route('/award-merit')
 @login_required
 def award_merit_page():
     return render_template('award_merit.html', houses=houses)
 
 
+# Demerit award form page
 @app.route('/award-demerit')
 @login_required
 def award_demerit_page():
     return render_template('award_demerit.html', houses=houses)
 
 
+# Get all merits for a specific student
 def get_student_merits(student_name):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -228,6 +248,7 @@ def get_student_merits(student_name):
     return merits
 
 
+# Get all demerits for a specific student
 def get_student_demerits(student_name):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -237,6 +258,7 @@ def get_student_demerits(student_name):
     return demerits
 
 
+# Get the current or most recent school term
 def get_current_term():
     connection = sqlite3.connect('school.db')
     connection.row_factory = sqlite3.Row
@@ -255,6 +277,7 @@ def get_current_term():
     return None, False
 
 
+# Get start and end dates for current week
 def get_week_dates():
     today = datetime.now()
     start_of_week = today - timedelta(days=today.weekday())
@@ -262,6 +285,7 @@ def get_week_dates():
     return start_of_week.strftime(DATE_FMT), end_of_week.strftime(DATE_FMT)
 
 
+# Get start and end dates for current year
 def get_year_dates():
     today = datetime.now()
     start_of_year = today.replace(month=1, day=1)
@@ -269,6 +293,7 @@ def get_year_dates():
     return start_of_year.strftime(DATE_FMT), end_of_year.strftime(DATE_FMT)
 
 
+# Filter students by date range and get their merits/demerits
 def filter_students_by_date(students, start_date, end_date):
     filtered_students = {}
     for student_name, student_data in students.items():
@@ -294,6 +319,7 @@ def filter_students_by_date(students, start_date, end_date):
     return filtered_students
 
 
+# Count demerits for a student in the current week
 def count_demerits_this_week(student_name):
     start_date, end_date = get_week_dates()
     connection = sqlite3.connect('awards.db')
@@ -304,6 +330,7 @@ def count_demerits_this_week(student_name):
     return count
 
 
+# Filter students by date range with grouped data (house and grade)
 def filter_students_by_date_grouped(students, start_date, end_date):
     filtered_students = {}
     for key, student_data in students.items():
@@ -327,6 +354,7 @@ def filter_students_by_date_grouped(students, start_date, end_date):
     return filtered_students
 
 
+# Count demerits for a student in current week with grouped data
 def count_demerits_this_week_grouped(name, house, grade):
     start_date, end_date = get_week_dates()
     connection = sqlite3.connect('awards.db')
@@ -338,6 +366,7 @@ def count_demerits_this_week_grouped(name, house, grade):
     return count
 
 
+# Get merit count (merits - demerits) for a specific house in date range
 def get_house_merit_count(house, start_date, end_date):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -349,6 +378,7 @@ def get_house_merit_count(house, start_date, end_date):
     return merits - demerits
 
 
+# Get merit counts for all houses within a year group in date range
 def get_yeargroup_house_merit_counts(year_group, start_date, end_date):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -369,6 +399,7 @@ def get_yeargroup_house_merit_counts(year_group, start_date, end_date):
     return house_counts
 
 
+# Admin route to manage school term dates
 @app.route('/admin/manage-terms', methods=['GET', 'POST'])
 @admin_required
 def manage_terms():
@@ -393,6 +424,7 @@ def manage_terms():
     return render_template('manage_terms.html', terms=terms, selected_year=selected_year)
 
 
+# Get all available school terms from database
 def get_available_terms():
     connection = sqlite3.connect('school.db')
     connection.row_factory = sqlite3.Row
@@ -401,6 +433,7 @@ def get_available_terms():
     return terms
 
 
+# Get students filtered by role (Housemaster sees their house, Mentor sees their year group)
 def get_students_by_filter(role, user_info):
     students = {}
     filter_label = None
@@ -436,6 +469,7 @@ def get_students_by_filter(role, user_info):
     return students, filter_label
 
 
+# Apply time filtering and add action alerts for students with 3+ demerits in a week
 def apply_time_filter_and_actions(students, start_date, end_date, time_filter):
     filtered = filter_students_by_date_grouped(students, start_date, end_date)
     for student in filtered.values():
@@ -453,6 +487,7 @@ def apply_time_filter_and_actions(students, start_date, end_date, time_filter):
     return filtered
 
 
+# Student management page for Housemasters and Mentors
 @app.route('/manage-students')
 @login_required
 def manage_students():
@@ -505,6 +540,7 @@ def manage_students():
                            show_current_date=show_current_date, available_terms=available_terms, now=datetime.now)
 
 
+# Handle merit submission form
 @app.route('/submit', methods=['POST'])
 @login_required
 def submit():
@@ -519,6 +555,7 @@ def submit():
                            reason=reason)
 
 
+# Handle demerit submission form
 @app.route('/submit-demerit', methods=['POST'])
 @login_required
 def submit_demerit():
@@ -533,6 +570,7 @@ def submit_demerit():
                            house=house, reason=reason)
 
 
+# Generate leaderboard sorted by house merit counts
 def get_leaderboard_by_house(start_date, end_date):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -550,6 +588,7 @@ def get_leaderboard_by_house(start_date, end_date):
     return leaderboard
 
 
+# Generate leaderboard sorted by year group merit counts
 def get_leaderboard_by_yeargroup(start_date, end_date):
     connection = sqlite3.connect('awards.db')
     connection.row_factory = sqlite3.Row
@@ -567,6 +606,7 @@ def get_leaderboard_by_yeargroup(start_date, end_date):
     return leaderboard
 
 
+# Leaderboard page showing house and year group rankings
 @app.route('/leaderboard')
 def leaderboard():
     sort_by = request.args.get('sort', 'house')  # 'house' or 'year'
